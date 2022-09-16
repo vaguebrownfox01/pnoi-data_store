@@ -9,7 +9,7 @@ import { Container } from "@mui/system";
 
 const Layout = React.memo(function Layout({ children }) {
 	return (
-		<Container maxWidth="sm">
+		<Container sx={{ border: "1px solid white" }} maxWidth="lg">
 			<Box>
 				<Header />
 				<StickyFooterWrapper>
