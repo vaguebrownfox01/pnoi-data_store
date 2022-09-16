@@ -2,6 +2,7 @@ import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import * as React from "react";
 import DataAccordion from "./DataAccordion";
+import UploadField from "./UploadField";
 
 const MainPanel = React.memo(function MainPanel({ children }) {
 	return (
@@ -19,27 +20,36 @@ const MainPanel = React.memo(function MainPanel({ children }) {
 export const pnoiDataPoints = [
 	{
 		name: "Meta-data",
-	},
-	{
-		name: "Vocal Breath [before]",
-	},
-	{
-		name: "Lung Breath [before]",
-	},
-	{
-		name: "PFT [before]",
-	},
-	{
-		name: "Vocal Breath [after]",
-	},
-	{
-		name: "Lung Breath [after]",
-	},
-	{
-		name: "PFT [after]",
+		when: "before",
 	},
 	{
 		name: "Payment details",
+		when: "before",
+	},
+	{
+		name: "Vocal Breath",
+		when: "before",
+		component: <UploadField />,
+	},
+	{
+		name: "Lung Breath",
+		when: "before",
+	},
+	{
+		name: "PFT",
+		when: "before",
+	},
+	{
+		name: "Vocal Breath",
+		when: "after",
+	},
+	{
+		name: "Lung Breath",
+		when: "after",
+	},
+	{
+		name: "PFT",
+		when: "after",
 	},
 ];
 

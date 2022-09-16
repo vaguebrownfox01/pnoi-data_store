@@ -4,6 +4,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Stack } from "@mui/material";
 
 const DataAccordion = React.memo(function DataAccordion({ sections }) {
 	return (
@@ -15,16 +16,15 @@ const DataAccordion = React.memo(function DataAccordion({ sections }) {
 						aria-controls="panel1a-content"
 						id={`panel1a-header-${i}`}
 					>
-						<Typography variant="h6" gutterBottom>
-							{dataPt.name}
-						</Typography>
+						<Stack sx={{ ml: 2 }}>
+							<Typography variant="h6">{dataPt.name}</Typography>
+							<Typography variant="body1" gutterBottom>
+								{dataPt.when}
+							</Typography>
+						</Stack>
 					</AccordionSummary>
 					<AccordionDetails>
-						<Typography>
-							Lorem ipsum dolor sit amet, consectetur adipiscing
-							elit. Suspendisse malesuada lacus ex, sit amet
-							blandit leo lobortis eget.
-						</Typography>
+						{dataPt?.component && dataPt.component}
 					</AccordionDetails>
 				</Accordion>
 			))}

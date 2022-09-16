@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { useDropzone, DropzoneOptions } from "react-dropzone";
 import darktheme from "../appconfig/theme";
 import { Box } from "@mui/system";
+import { Typography } from "@mui/material";
 // import theme from "../styles/theme";
 
 const classes = {
@@ -23,6 +24,7 @@ const classes = {
 			borderColor: darktheme.palette.primary.accent,
 		},
 		cursor: "pointer",
+		p: 4,
 	},
 	dragActive: {
 		borderColor: darktheme.palette.secondary.main,
@@ -64,11 +66,11 @@ const DropZone = React.memo(function DropZone({ dropzoneOptions }) {
 			})}
 		>
 			<input {...getInputProps()} />
-			{!isDragActive ? (
-				<p>Drag and drop one image here, or click to select file</p>
-			) : (
-				<em>(Only *.jpeg and *.png images will be accepted)</em>
-			)}
+			<Typography variant="caption" textAlign="center">
+				{!isDragActive
+					? "Drag and drop one file here, or click to select file"
+					: "Make sure file is relevant to the field"}
+			</Typography>
 		</Box>
 	);
 });
