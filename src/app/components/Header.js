@@ -10,7 +10,7 @@ const classes = {
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
 		}),
-		background: theme.palette.primary.main,
+		background: theme.palette.primary.accent,
 	},
 	appBarShift: {
 		width: "100%",

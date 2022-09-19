@@ -10,7 +10,7 @@ const DataAccordion = React.memo(function DataAccordion({ sections }) {
 	return (
 		<div>
 			{sections.map((dataPt, i) => (
-				<Accordion>
+				<Accordion key={`panel1a-header-${i}-key`}>
 					<AccordionSummary
 						expandIcon={<ExpandMoreIcon />}
 						aria-controls="panel1a-content"
@@ -23,7 +23,7 @@ const DataAccordion = React.memo(function DataAccordion({ sections }) {
 							</Typography>
 						</Stack>
 					</AccordionSummary>
-					<AccordionDetails>
+					<AccordionDetails sx={{ m: [0, 2] }}>
 						{dataPt?.component && dataPt.component}
 					</AccordionDetails>
 				</Accordion>

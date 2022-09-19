@@ -34,8 +34,8 @@ const darktheme = createTheme({
 	palette: {
 		mode: "dark",
 		primary: {
-			main: "#142850",
-			accent: "#00A8CC",
+			main: "#00A8CC",
+			accent: "#142850",
 			text: "#F9F5EB",
 		},
 		secondary: {
