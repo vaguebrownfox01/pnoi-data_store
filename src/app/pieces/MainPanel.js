@@ -21,42 +21,42 @@ const MainPanel = React.memo(function MainPanel({ children }) {
 export const pnoiDataPoints = [
 	{
 		name: "Meta-data",
-		when: "before",
+		when: "before/ no inhaler",
 		component: <MetadataSection />,
 	},
 	{
 		name: "Questionnair",
-		when: "before",
+		when: "before/ no inhaler",
 		component: <QuestionnairSection />,
 	},
 	{
 		name: "Vocal Breath",
-		when: "before",
+		when: "before/ no inhaler",
 		component: <UploadField />,
 	},
 	{
 		name: "Lung Breath",
-		when: "before",
+		when: "before/ no inhaler",
 		component: <UploadField />,
 	},
 	{
 		name: "PFT",
-		when: "before",
+		when: "before/ no inhaler",
 		component: <UploadField />,
 	},
 	{
 		name: "Vocal Breath",
-		when: "after",
+		when: "after inhaler",
 		component: <UploadField />,
 	},
 	{
 		name: "Lung Breath",
-		when: "after",
+		when: "after inhaler",
 		component: <UploadField />,
 	},
 	{
 		name: "PFT",
-		when: "after",
+		when: "after inhaler",
 		component: <UploadField />,
 	},
 ];
