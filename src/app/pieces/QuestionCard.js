@@ -2,8 +2,6 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import {
 	Box,
-	Card,
-	CardContent,
 	Collapse,
 	FormControl,
 	FormControlLabel,
@@ -11,26 +9,27 @@ import {
 	IconButton,
 	Radio,
 	RadioGroup,
+	Stack,
 	TextField,
 	Typography,
 } from "@mui/material";
 import * as React from "react";
 
 const classes = {
-	cardRoot: (t) => ({ margin: t.spacing("auto", 2, 0) }),
-	formRoot: (t) => ({}),
-	radioGroup: (t) => ({ margin: t.spacing(0, 2) }),
-	textField: (t) => ({ margin: t.spacing(2, 2) }),
-	buttonRoot: (t) => ({
+	cardRoot: {},
+	formRoot: { margin: "auto", minWidth: "70%" },
+	radioGroup: { m: [0, 2] },
+	textField: { m: [2, 2] },
+	buttonRoot: {
 		display: "flex",
 		justifyContent: "space-around",
-		marginTop: t.spacing(2),
-	}),
+		marginTop: 2,
+	},
 };
 
 const QuestionCard = React.memo(function QuestionCard({
 	question,
-	handleSubmit,
+	handleQuestionSubmit,
 	done,
 }) {
 	const [answer, setAnswer] = React.useState({
@@ -49,14 +48,17 @@ const QuestionCard = React.memo(function QuestionCard({
 		let ans = answer;
 		setAnswer(() => ({ question: null, answer: null }));
 
-		handleSubmit({ answer: ans, next: this.next });
+		handleQuestionSubmit(ans, this.next);
 	}
 
 	return (
-		<Card>
-			<CardContent sx={classes.cardRoot}>
-				<Collapse in={!done}>
-					<FormControl sx={classes.formRoot}>
+		<>
+			<Collapse in={!done}>
+				<Stack justifyContent="center">
+					<FormControl
+						sx={classes.formRoot}
+						onSubmit={handleNext.bind({ next: true })}
+					>
 						<FormLabel id={`questionformlabel${question.qno}`}>
 							<Typography
 								variant="h6"
@@ -100,35 +102,35 @@ const QuestionCard = React.memo(function QuestionCard({
 								)}
 							</>
 						</RadioGroup>
+
+						<Box sx={classes.buttonRoot}>
+							<IconButton
+								disabled={question.qno === 1}
+								onClick={handleNext.bind({ next: false })}
+							>
+								<ArrowBackIosIcon />
+							</IconButton>
+							<IconButton
+								disabled={done}
+								onClick={handleNext.bind({ next: true })}
+							>
+								<ArrowForwardIosIcon />
+							</IconButton>
+						</Box>
 					</FormControl>
-				</Collapse>
-				<Collapse in={done}>
-					<Typography
-						sx={{ textAlign: "center" }}
-						color="GrayText"
-						variant="h6"
-						gutterBottom
-					>
-						Done!!!
-					</Typography>
-				</Collapse>
-				<Box sx={classes.buttonRoot}>
-					<IconButton
-						disabled={question.qno === 1}
-						onClick={handleNext.bind({ next: false })}
-					>
-						<ArrowBackIosIcon />
-					</IconButton>
-					<IconButton
-						onSubmit={handleNext.bind({ next: true })}
-						disabled={done}
-						onClick={handleNext.bind({ next: true })}
-					>
-						<ArrowForwardIosIcon />
-					</IconButton>
-				</Box>
-			</CardContent>
-		</Card>
+				</Stack>
+			</Collapse>
+			<Collapse in={done}>
+				<Typography
+					sx={{ textAlign: "center" }}
+					color="GrayText"
+					variant="h6"
+					gutterBottom
+				>
+					Done!!!
+				</Typography>
+			</Collapse>
+		</>
 	);
 });
 

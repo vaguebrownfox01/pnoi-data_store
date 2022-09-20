@@ -42,18 +42,24 @@ const MetadataSection = React.memo(function MetadataSection() {
 							label={f.label}
 							type={f.type}
 							variant="outlined"
-							value={field[f.field]}
+							value={field[f.field] || ""}
 							onChange={handleFieldInput.bind({ field: f.field })}
 							autoComplete="off"
 						/>
 					) : (
-						<FormControl key={`${f.id}-${i}`} fullWidth>
-							<InputLabel id={`${f.id}-label`}>Gender</InputLabel>
+						<FormControl
+							sx={{ mb: 4 }}
+							key={`${f.id}-${i}`}
+							fullWidth
+						>
+							<InputLabel id={`${f.id}-label`}>
+								{f.label}
+							</InputLabel>
 							<Select
 								sx={classes.selectMenu}
 								labelId={`${f.id}-label`}
 								id={`${f.id}-select-helper`}
-								value={field[f.field]}
+								value={field[f.field] || ""}
 								label={`${f.label}`}
 								onChange={handleFieldInput.bind({
 									field: f.field,
@@ -62,7 +68,7 @@ const MetadataSection = React.memo(function MetadataSection() {
 								{f.menuItems.map((g, i) => (
 									<MenuItem
 										key={`${g.value}+${i}`}
-										value={`${g?.value || ""}`}
+										value={`${g.value}`}
 									>{`${g.label}`}</MenuItem>
 								))}
 							</Select>

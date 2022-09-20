@@ -1,6 +1,6 @@
 import * as React from "react";
 import clsx from "clsx";
-import { useDropzone, DropzoneOptions } from "react-dropzone";
+import { useDropzone } from "react-dropzone";
 import darktheme from "../appconfig/theme";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
@@ -38,9 +38,9 @@ const classes = {
 };
 
 const DropZone = React.memo(function DropZone({ dropzoneOptions }) {
-	const handleDrop = React.useCallback((files) => {
+	const handleDrop = (files) => {
 		console.log({ files });
-	});
+	};
 	const {
 		getRootProps,
 		getInputProps,

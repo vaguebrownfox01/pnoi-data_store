@@ -1,14 +1,9 @@
 import React from "react";
 
-const questions = require("../appconfig/content/questions");
+const { questions } = require("../appconfig/content/questions");
 
 const useQuestionnairInput = () => {
-	const [questionState, setQuestionState] = React.useState({
-		allQuestions: questions,
-		currentQuestion: questions[1],
-		questionDone: false,
-		answeredQs: [],
-	});
+	const [questionState, setQuestionState] = React.useState({});
 
 	function handleNextQuestion({ question, answer, next }) {
 		if (next) {
@@ -24,33 +19,50 @@ const useQuestionnairInput = () => {
 
 			const _qdone = nextQno === -1;
 
-			return {
-				...questionState,
+			const _answeredQ = { ...question, answer: answer.answer };
+
+			setQuestionState((p) => ({
+				...p,
 				questionDone: _qdone,
-				answeredQs: [...questionState.answeredQs, question],
-				currentQuestion:
-					questionState.allQuestions[nextQno] ||
-					questionState.currentQuestion,
-			};
+				answeredQs: [...p.answeredQs, _answeredQ],
+				currentQuestion: p.allQuestions[nextQno] || p.currentQuestion,
+			}));
 		} else {
 			let _answeredQs = [...questionState.answeredQs];
 			if (_answeredQs.length < 1) {
-				return { ...questionState, questionDone: false };
+				setQuestionState((p) => ({ ...p, questionDone: false }));
+				return;
 			}
 
 			const _currentQuestion = _answeredQs.pop();
-			return {
-				...questionState,
+			setQuestionState((p) => ({
+				...p,
 				questionDone: false,
 				answeredQs: [..._answeredQs],
 				currentQuestion: _currentQuestion,
-			};
+			}));
 		}
+	}
+
+	function handleSubmit() {
+		//TODO: write to firebase
+		console.log("write to firebase pending");
+		console.log(questionState);
 	}
 
 	React.useDebugValue("Questionnair Input");
 
-	return [questionState, handleNextQuestion];
+	React.useEffect(() => {
+		console.log({ questions });
+		setQuestionState({
+			allQuestions: questions,
+			currentQuestion: questions[1],
+			questionDone: false,
+			answeredQs: [],
+		});
+	}, []);
+
+	return [questionState, handleNextQuestion, handleSubmit];
 };
 
 export default useQuestionnairInput;

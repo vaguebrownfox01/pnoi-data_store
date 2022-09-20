@@ -1,4 +1,3 @@
-import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import * as React from "react";
 import DataAccordion from "./DataAccordion";
@@ -31,10 +30,6 @@ export const pnoiDataPoints = [
 		component: <QuestionnairSection />,
 	},
 	{
-		name: "Payment details",
-		when: "before",
-	},
-	{
 		name: "Vocal Breath",
 		when: "before",
 		component: <UploadField />,
@@ -42,22 +37,27 @@ export const pnoiDataPoints = [
 	{
 		name: "Lung Breath",
 		when: "before",
+		component: <UploadField />,
 	},
 	{
 		name: "PFT",
 		when: "before",
+		component: <UploadField />,
 	},
 	{
 		name: "Vocal Breath",
 		when: "after",
+		component: <UploadField />,
 	},
 	{
 		name: "Lung Breath",
 		when: "after",
+		component: <UploadField />,
 	},
 	{
 		name: "PFT",
 		when: "after",
+		component: <UploadField />,
 	},
 ];
 

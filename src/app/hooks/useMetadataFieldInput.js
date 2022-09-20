@@ -1,73 +1,99 @@
 import React from "react";
 
 const useMetadataFieldInput = () => {
-	const fields = [
-		{
-			id: "Name",
-			label: "Name",
-			type: "text",
-			field: "subjectName",
-		},
-		{
-			id: "Age",
-			label: "Age",
-			type: "number",
-			field: "subjectAge",
-		},
-		{
-			id: "Height",
-			label: "Height",
-			type: "number",
-			field: "subjectHeight",
-		},
-		{
-			id: "Weight",
-			label: "Weight",
-			type: "number",
-			field: "subjectWeight",
-		},
-		{
-			id: "Gender",
-			label: "Gender",
-			type: "menu",
-			field: "subjectGender",
-			menuItems: [
-				{ label: "Select", value: "" },
-				{ label: "Male", value: "Male" },
-				{ label: "Female", value: "Female" },
-				{ label: "Other", value: "Other" },
-			],
-		},
-	];
+	const [done, setDone] = React.useState(false);
+	const [field, setField] = React.useState({});
 
-	const formatFieldValue = ({ field, value }) => {
-		switch (field) {
+	const fields = React.useMemo(() => {
+		return [
+			{
+				id: "Name",
+				label: "Name",
+				type: "text",
+				field: "subjectName",
+			},
+			{
+				id: "Age",
+				label: "Age",
+				type: "number",
+				field: "subjectAge",
+			},
+			{
+				id: "Height",
+				label: "Height",
+				type: "number",
+				field: "subjectHeight",
+			},
+			{
+				id: "Weight",
+				label: "Weight",
+				type: "number",
+				field: "subjectWeight",
+			},
+			{
+				id: "Gender",
+				label: "Gender",
+				type: "menu",
+				field: "subjectGender",
+				menuItems: [
+					{ label: "Select", value: "" },
+					{ label: "Male", value: "Male" },
+					{ label: "Female", value: "Female" },
+					{ label: "Other", value: "Other" },
+				],
+			},
+			{
+				id: "RemunerationType",
+				label: "Remuneration Type",
+				type: "menu",
+				field: "subjectRemunerationType",
+				menuItems: [
+					{ label: "Select", value: "" },
+					{ label: "Account No.", value: "Account No." },
+					{ label: "GooglePay", value: "GooglePay" },
+					{ label: "Paytm", value: "Paytm" },
+					{ label: "PhonePe", value: "PhonePe" },
+				],
+			},
+			{
+				id: "RemunerationDetails",
+				label: "Remuneration Details",
+				type: "text",
+				field: "subjectRemunerationDetails",
+			},
+		];
+	}, []);
+
+	const formatFieldValue = (_field, _values) => {
+		switch (_field) {
 			case "subjectName":
-				let name = value.replace(/[^a-zA-Z +]/g, "");
-				return { f: field, v: name };
+				let name = _values.replace(/[^a-zA-Z +]/g, "");
+				return [_field, name];
 			case "subjectAge":
-				let age = Math.abs(parseInt(value) || 0) % 100;
-				return { f: field, v: `${age}` };
+				let age = Math.abs(parseInt(_values) || 0) % 100;
+				return [_field, `${age}`];
 			case "subjectHeight":
-				let height = Math.abs(parseInt(value) || 0) % 300;
-				return { f: field, v: `${height}` };
+				let height = Math.abs(parseInt(_values) || 0) % 300;
+				return [_field, `${height}`];
 			case "subjectWeight":
-				let weight = Math.abs(parseInt(value) || 0) % 200;
-				return { f: field, v: `${weight}` };
+				let weight = Math.abs(parseInt(_values) || 0) % 200;
+				return [_field, `${weight}`];
 
 			default:
-				return { f: field, v: value };
+				return [_field, _values];
 		}
 	};
 
-	const [done, setDone] = React.useState(false);
-	const [field, setField] = React.useState(
-		fields.reduce((b, a) => ({ ...b, [a.field]: "" }), {})
-	);
+	const checkFields = React.useCallback(() => {
+		for (let f of fields) {
+			if (field[f.field] === "") return false;
+		}
+		return true;
+	}, [field, fields]);
 
 	function handleFieldInput({ target }) {
 		const { value } = target;
-		let { f, v } = formatFieldValue({ field: this.field, value: value });
+		let [f, v] = formatFieldValue(this.field, value);
 		setField((p) => ({ ...p, [f]: v }));
 	}
 
@@ -78,15 +104,12 @@ const useMetadataFieldInput = () => {
 	}
 
 	React.useEffect(() => {
-		const checkFields = () => {
-			for (let f of fields) {
-				if (field[f.field] === "") return false;
-			}
-			return true;
-		};
-
 		setDone(() => checkFields());
-	}, [field]);
+	}, [field, checkFields]);
+
+	React.useEffect(() => {
+		setField(fields.reduce((b, a) => ({ ...b, [a.field]: "" }), {}));
+	}, []);
 
 	React.useDebugValue("Field Input");
 

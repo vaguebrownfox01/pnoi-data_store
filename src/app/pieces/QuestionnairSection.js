@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import * as React from "react";
 
 import QuestionCard from "./QuestionCard";
@@ -7,14 +7,15 @@ import Wait from "../components/Wait";
 import useQuestionnairInput from "../hooks/useQuestionnairInput";
 
 const QuestionnairSection = React.memo(function QuestionnairSection() {
-	const [question, handleNextQuestion] = useQuestionnairInput();
+	const [questionState, handleNextQuestion, handleSubmit] =
+		useQuestionnairInput();
 
-	const handleSubmit = ({ answer, next }) => {
+	const handleQuestionSubmit = (answer, next) => {
 		handleNextQuestion({
-			question: question.currentQuestion,
+			question: questionState.currentQuestion,
 			answer,
 			next,
-			done: question.questionDone,
+			done: questionState.questionDone,
 		});
 	};
 
@@ -25,14 +26,25 @@ const QuestionnairSection = React.memo(function QuestionnairSection() {
 				flexDirection: "column",
 			}}
 		>
-			{question.allQuestions ? (
-				<QuestionCard
-					{...{
-						question: question.currentQuestion,
-						handleSubmit,
-						done: question.questionDone,
-					}}
-				/>
+			{questionState.allQuestions && questionState.currentQuestion ? (
+				<>
+					<QuestionCard
+						{...{
+							question: questionState.currentQuestion,
+							handleQuestionSubmit,
+							done: questionState.questionDone,
+						}}
+					/>
+					<Stack sx={{ mt: 4 }} justifyContent="center">
+						<Button
+							variant="contained"
+							onClick={handleSubmit}
+							disabled={!questionState.questionDone}
+						>
+							Submit
+						</Button>
+					</Stack>
+				</>
 			) : (
 				<Wait />
 			)}
