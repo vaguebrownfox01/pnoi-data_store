@@ -4,7 +4,6 @@ import { useDropzone } from "react-dropzone";
 import darktheme from "../appconfig/theme";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
-// import theme from "../styles/theme";
 
 const classes = {
 	dropzone: {
@@ -15,19 +14,19 @@ const classes = {
 		padding: 2,
 		borderWidth: 2,
 		borderRadius: 2,
-		borderColor: darktheme.palette.primary.accent,
+		borderColor: darktheme.palette.primary.main,
 		borderStyle: "dashed",
 		color: darktheme.palette.grey[400],
 		outline: "none",
 		transition: "border .24s ease-in-out",
 		"&:focus": {
-			borderColor: darktheme.palette.primary.accent,
+			borderColor: darktheme.palette.secondary.highlight,
 		},
 		cursor: "pointer",
 		p: 4,
 	},
 	dragActive: {
-		borderColor: darktheme.palette.secondary.main,
+		borderColor: darktheme.palette.secondary.highlight,
 	},
 	dragAccept: {
 		borderColor: darktheme.palette.primary.main,

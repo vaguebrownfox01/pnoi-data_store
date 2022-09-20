@@ -1,10 +1,10 @@
 import Box from "@mui/material/Box";
-import { orange } from "@mui/material/colors";
+import { orange, pink } from "@mui/material/colors";
 import * as React from "react";
 import DataAccordion from "./DataAccordion";
 import MetadataSection from "./MetadataSection";
 import QuestionnairSection from "./QuestionnairSection";
-import UploadField from "./UploadField";
+import UploadFileSection from "./UploadFileSection";
 
 const MainPanel = React.memo(function MainPanel({ children }) {
 	return (
@@ -33,35 +33,38 @@ export const pnoiDataPoints = [
 	{
 		name: "Vocal Breath",
 		when: "before/ no inhaler",
-		component: <UploadField />,
+		color: pink[400],
+		component: <UploadFileSection />,
 	},
 	{
 		name: "Lung Breath",
 		when: "before/ no inhaler",
-		component: <UploadField />,
+		color: pink[400],
+		component: <UploadFileSection />,
 	},
 	{
 		name: "PFT",
 		when: "before/ no inhaler",
-		component: <UploadField />,
+		color: pink[400],
+		component: <UploadFileSection />,
 	},
 	{
 		name: "Vocal Breath",
 		when: "after inhaler",
 		color: orange[400],
-		component: <UploadField />,
+		component: <UploadFileSection />,
 	},
 	{
 		name: "Lung Breath",
 		when: "after inhaler",
 		color: orange[400],
-		component: <UploadField />,
+		component: <UploadFileSection />,
 	},
 	{
 		name: "PFT",
 		when: "after inhaler",
 		color: orange[400],
-		component: <UploadField />,
+		component: <UploadFileSection />,
 	},
 ];
 

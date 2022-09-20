@@ -109,7 +109,7 @@ const useMetadataFieldInput = () => {
 
 	React.useEffect(() => {
 		setField(fields.reduce((b, a) => ({ ...b, [a.field]: "" }), {}));
-	}, []);
+	}, [fields]);
 
 	React.useDebugValue("Field Input");
 
