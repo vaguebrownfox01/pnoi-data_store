@@ -1,4 +1,5 @@
 import Box from "@mui/material/Box";
+import { orange } from "@mui/material/colors";
 import * as React from "react";
 import DataAccordion from "./DataAccordion";
 import MetadataSection from "./MetadataSection";
@@ -47,16 +48,19 @@ export const pnoiDataPoints = [
 	{
 		name: "Vocal Breath",
 		when: "after inhaler",
+		color: orange[400],
 		component: <UploadField />,
 	},
 	{
 		name: "Lung Breath",
 		when: "after inhaler",
+		color: orange[400],
 		component: <UploadField />,
 	},
 	{
 		name: "PFT",
 		when: "after inhaler",
+		color: orange[400],
 		component: <UploadField />,
 	},
 ];

@@ -18,7 +18,12 @@ const DataAccordion = React.memo(function DataAccordion({ sections }) {
 					>
 						<Stack sx={{ ml: 2 }}>
 							<Typography variant="h6">{dataPt.name}</Typography>
-							<Typography variant="body1" gutterBottom>
+							<Typography
+								variant="caption"
+								fontWeight="bold"
+								color={dataPt.color || "primary"}
+								gutterBottom
+							>
 								{dataPt.when}
 							</Typography>
 						</Stack>
