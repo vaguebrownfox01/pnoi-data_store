@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Box, CircularProgress } from "@mui/material";
 
-const Wait = React.memo(function Wait() {
+const Wait = React.memo(function Wait(props) {
 	return (
 		<Box sx={{ display: "flex", justifyContent: "center", margin: 2 }}>
-			<CircularProgress color="secondary" />
+			<CircularProgress {...props} color="primary" />
 		</Box>
 	);
 });
