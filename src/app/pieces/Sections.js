@@ -4,9 +4,15 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Stack } from "@mui/material";
+import { AccordionActions, Stack } from "@mui/material";
+import PendingIcon from "@mui/icons-material/Pending";
+import { green, orange } from "@mui/material/colors";
+import CloudDoneIcon from "@mui/icons-material/CloudDone";
+import useAppSections from "../hooks/useAppSections";
 
-const DataAccordion = React.memo(function DataAccordion({ sections }) {
+const Sections = React.memo(function Sections() {
+	const [sections] = useAppSections();
+
 	return (
 		<div>
 			{sections.map((dataPt, i) => (
@@ -16,8 +22,15 @@ const DataAccordion = React.memo(function DataAccordion({ sections }) {
 						aria-controls="panel1a-content"
 						id={`panel1a-header-${i}`}
 					>
+						<AccordionActions>
+							{i % 3 ? ( // TODO: section state indicator
+								<PendingIcon sx={{ color: orange[400] }} />
+							) : (
+								<CloudDoneIcon sx={{ color: green[400] }} />
+							)}
+						</AccordionActions>
 						<Stack sx={{ ml: 2 }}>
-							<Typography variant="h6">{dataPt.name}</Typography>
+							<Typography variant="h6">{dataPt.title}</Typography>
 							<Typography
 								variant="caption"
 								fontWeight="bold"
@@ -28,8 +41,8 @@ const DataAccordion = React.memo(function DataAccordion({ sections }) {
 							</Typography>
 						</Stack>
 					</AccordionSummary>
-					<AccordionDetails sx={{ m: [0, 2] }}>
-						{dataPt?.component && dataPt.component}
+					<AccordionDetails sx={{ m: 2, mt: 0 }}>
+						{dataPt.component}
 					</AccordionDetails>
 				</Accordion>
 			))}
@@ -37,4 +50,4 @@ const DataAccordion = React.memo(function DataAccordion({ sections }) {
 	);
 });
 
-export default DataAccordion;
+export default Sections;
