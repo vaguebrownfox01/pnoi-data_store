@@ -1,86 +1,44 @@
 import React from "react";
+import {
+	metaDataInfo,
+	SUBJECT_AGE,
+	SUBJECT_HEIGHT,
+	SUBJECT_NAME,
+	SUBJECT_RUMTYPE,
+	SUBJECT_WEIGHT,
+} from "../appconfig/metadata";
 
 const useMetadataFieldInput = () => {
+	// States
 	const [done, setDone] = React.useState(false);
 	const [field, setField] = React.useState({});
 
+	// Constants
 	const fields = React.useMemo(() => {
-		return [
-			{
-				id: "Name",
-				label: "Name",
-				type: "text",
-				field: "subjectName",
-			},
-			{
-				id: "Age",
-				label: "Age",
-				type: "number",
-				field: "subjectAge",
-			},
-			{
-				id: "Height",
-				label: "Height",
-				type: "number",
-				field: "subjectHeight",
-			},
-			{
-				id: "Weight",
-				label: "Weight",
-				type: "number",
-				field: "subjectWeight",
-			},
-			{
-				id: "Gender",
-				label: "Gender",
-				type: "menu",
-				field: "subjectGender",
-				menuItems: [
-					{ label: "Select", value: "" },
-					{ label: "Male", value: "Male" },
-					{ label: "Female", value: "Female" },
-					{ label: "Other", value: "Other" },
-				],
-			},
-			{
-				id: "RemunerationType",
-				label: "Remuneration Type",
-				type: "menu",
-				field: "subjectRemunerationType",
-				menuItems: [
-					{ label: "Select", value: "" },
-					{ label: "Account No.", value: "Account No." },
-					{ label: "GooglePay", value: "GooglePay" },
-					{ label: "Paytm", value: "Paytm" },
-					{ label: "PhonePe", value: "PhonePe" },
-				],
-			},
-			{
-				id: "RemunerationDetails",
-				label: "Remuneration Details",
-				type: "text",
-				field: "subjectRemunerationDetails",
-			},
-		];
+		return metaDataInfo;
 	}, []);
 
-	const formatFieldValue = (_field, _values) => {
+	// Helpers
+	const formatFieldValue = (_field, _value) => {
 		switch (_field) {
-			case "subjectName":
-				let name = _values.replace(/[^a-zA-Z +]/g, "");
+			case SUBJECT_NAME:
+				let name = _value.replace(/[^a-zA-Z +]/g, "");
 				return [_field, name];
-			case "subjectAge":
-				let age = Math.abs(parseInt(_values) || 0) % 100;
+			case SUBJECT_AGE:
+				let age = Math.abs(parseInt(_value) || 0) % 100;
 				return [_field, `${age}`];
-			case "subjectHeight":
-				let height = Math.abs(parseInt(_values) || 0) % 300;
+			case SUBJECT_HEIGHT:
+				let height = Math.abs(parseInt(_value) || 0) % 300;
 				return [_field, `${height}`];
-			case "subjectWeight":
-				let weight = Math.abs(parseInt(_values) || 0) % 200;
+			case SUBJECT_WEIGHT:
+				let weight = Math.abs(parseInt(_value) || 0) % 200;
 				return [_field, `${weight}`];
-
+			case SUBJECT_RUMTYPE:
+				return [_field, _value];
+			case SUBJECT_RUMTYPE:
+				return [_field, _value];
 			default:
-				return [_field, _values];
+				return [_field, _value];
 		}
 	};
 
@@ -91,29 +49,28 @@ const useMetadataFieldInput = () => {
 		return true;
 	}, [field, fields]);
 
-	function handleFieldInput({ target }) {
-		const { value } = target;
-		let [f, v] = formatFieldValue(this.field, value);
-		setField((p) => ({ ...p, [f]: v }));
+	// Handlers
+	function handleFieldInput(f, v) {
+		let [_f, _v] = formatFieldValue(f, v);
+		setField((p) => ({ ...p, [_f]: _v }));
 	}
 
-	function handleSubmit() {
-		//TODO: write to firebase
-		console.log("write to firebase pending");
-		console.log(field);
-	}
-
+	// Effects
+	// Validate Field Values on Input
 	React.useEffect(() => {
 		setDone(() => checkFields());
 	}, [field, checkFields]);
 
+	// Reset Field Values on Start
 	React.useEffect(() => {
-		setField(fields.reduce((b, a) => ({ ...b, [a.field]: "" }), {}));
+		setField(
+			fields.reduce((prv, cur) => ({ ...prv, [cur.field]: "" }), {})
+		);
 	}, [fields]);
 
 	React.useDebugValue("Field Input");
 
-	return [fields, field, done, handleFieldInput, handleSubmit];
+	return [fields, field, done, handleFieldInput];
 };
 
 export default useMetadataFieldInput;
