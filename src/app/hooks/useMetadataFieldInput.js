@@ -7,8 +7,9 @@ import {
 	SUBJECT_RUMTYPE,
 	SUBJECT_WEIGHT,
 } from "../appconfig/metadata";
+import { SUB_STORE_KEY_BIODATA } from "../appconfig/sections";
 
-const useMetadataFieldInput = () => {
+const useMetadataFieldInput = (currentSubject) => {
 	// States
 	const [done, setDone] = React.useState(false);
 	const [field, setField] = React.useState({});
@@ -63,10 +64,16 @@ const useMetadataFieldInput = () => {
 
 	// Reset Field Values on Start
 	React.useEffect(() => {
-		setField(
-			fields.reduce((prv, cur) => ({ ...prv, [cur.field]: "" }), {})
-		);
-	}, [fields]);
+		console.log({ currentSubject });
+		if (currentSubject) {
+			let fillInfo = currentSubject[SUB_STORE_KEY_BIODATA];
+			setField(fillInfo);
+		} else {
+			setField(
+				fields.reduce((prv, cur) => ({ ...prv, [cur.field]: "" }), {})
+			);
+		}
+	}, [fields, currentSubject]);
 
 	React.useDebugValue("Field Input");
 
