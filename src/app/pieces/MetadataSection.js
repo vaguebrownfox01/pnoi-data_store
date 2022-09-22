@@ -9,30 +9,56 @@ import {
 	TextField,
 } from "@mui/material";
 import * as React from "react";
+import { SUB_STORE_KEY_BIODATA } from "../appconfig/sections";
 import useMetadataFieldInput from "../hooks/useMetadataFieldInput";
+import useStoreSync from "../hooks/useStoreSync";
+import SubjectList from "./SubjectList";
 
 const classes = {
-	fieldRoot: (t) => ({ paddingTop: t.spacing(2) }),
+	fieldRoot: { ml: 2, mr: 1 },
 	textField: function s(t) {
 		return {
-			margin: t.spacing(0, 4, 4, 0),
+			margin: t.spacing(0, 2, 2, 0),
 			width: `${100 - this.i * 7}%`,
-
-			root: {
-				color: "red",
-			},
 		};
 	},
-	selectMenu: (t) => ({ maxWidth: t.spacing(24) }),
+	selectMenu: (t) => ({ maxWidth: t.spacing(32) }),
 };
 
 const MetadataSection = React.memo(function MetadataSection() {
-	const [fields, field, done, handleFieldInput, handleSubmit] =
-		useMetadataFieldInput();
+	const [
+		loading,
+		allSubjects,
+		currentSubject,
+		handleSubjectSelect,
+		handleFormInfoSync,
+	] = useStoreSync();
+	const [fields, field, done, handleFieldInput] =
+		useMetadataFieldInput(currentSubject);
+
+	function handleFormInputData({ target }) {
+		const { value: _value } = target;
+		const _field = this.field;
+
+		handleFieldInput(_field, _value);
+	}
+
+	function handleFormSubmitData() {
+		console.log({ metadatafields: field });
+		handleFormInfoSync(field);
+	}
 
 	return (
 		<Box sx={classes.fieldRoot}>
 			<Stack>
+				<SubjectList
+					{...{
+						loading,
+						allSubjects,
+						currentSubject,
+						handleSubjectSelect,
+					}}
+				/>
 				{fields.map((f, i) =>
 					f.type !== "menu" ? (
 						<TextField
@@ -41,14 +67,17 @@ const MetadataSection = React.memo(function MetadataSection() {
 							id={f.id}
 							label={f.label}
 							type={f.type}
-							variant="outlined"
+							size="small"
+							variant="standard"
 							value={field[f.field] || ""}
-							onChange={handleFieldInput.bind({ field: f.field })}
+							onChange={handleFormInputData.bind({
+								field: f.field,
+							})}
 							autoComplete="off"
 						/>
 					) : (
 						<FormControl
-							sx={{ mb: 4 }}
+							sx={{ mt: 2, mb: 2 }}
 							key={`${f.id}-${i}`}
 							fullWidth
 						>
@@ -61,7 +90,9 @@ const MetadataSection = React.memo(function MetadataSection() {
 								id={`${f.id}-select-helper`}
 								value={field[f.field] || ""}
 								label={`${f.label}`}
-								onChange={handleFieldInput.bind({
+								size="small"
+								variant="standard"
+								onChange={handleFormInputData.bind({
 									field: f.field,
 								})}
 							>
@@ -76,10 +107,11 @@ const MetadataSection = React.memo(function MetadataSection() {
 					)
 				)}
 			</Stack>
+
 			<Stack sx={{ mt: 4 }} justifyContent="center">
 				<Button
 					variant="contained"
-					onClick={handleSubmit}
+					onClick={handleFormSubmitData}
 					disabled={!done}
 				>
 					Submit

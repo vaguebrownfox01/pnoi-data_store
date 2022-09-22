@@ -5,7 +5,16 @@ import createDataContext from "../createDataContext";
 const subjectInitialState = {
 	loading: false,
 	firebaseId: "",
-	subjectInfo: {},
+	subjectMetadata: {},
+	subjectQuestionnair: {},
+	subjectUploadedData: [],
+
+	metadataDone: false,
+	questionnairDone: false,
+	vocalbreathDone: false,
+	lungbreathDone: false,
+
+	accordionState: {},
 };
 
 // Reducer
@@ -15,19 +24,41 @@ const subjectReducer = (state, action) => {
 		case "SET_LOADING":
 			return { ...state, loading: payload };
 
+		case "SET_ALL":
+			return { ...state, ...payload };
+
 		default:
 			return state;
 	}
 };
 
 // Actions
-const subjectLoadAction = (dispatch) => {
+const subjectLoadAction = (d) => {
 	return () => {
-		wait(true, dispatch);
+		wait(true, d);
 
 		console.log("subject action log");
 
-		wait(false, dispatch);
+		wait(false, d);
+	};
+};
+
+const subjectSetAllInfoAction = (d) => {
+	return (subjectState, action) => {
+		wait(true, d);
+
+		switch (action) {
+			case "reset":
+				d({ type: "SET_ALL", payload: subjectInitialState });
+
+				break;
+
+			default:
+				d({ type: "SET_ALL", payload: subjectState });
+				break;
+		}
+
+		wait(false, d);
 	};
 };
 
@@ -40,6 +71,7 @@ const { Context: SubjectContext, Provider: SubjectProvider } =
 		subjectReducer,
 		{
 			subjectLoadAction,
+			subjectSetAllInfoAction,
 		},
 		subjectInitialState
 	);
