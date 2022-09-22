@@ -1,33 +1,44 @@
+import { SUB_STORE_KEY_BIODATA } from "./sections";
+
+export const SUBJECT_ID = "firebaseId";
+export const SUBJECT_NAME = "subjectName";
+export const SUBJECT_AGE = "subjectAge";
+export const SUBJECT_HEIGHT = "subjectHeight";
+export const SUBJECT_WEIGHT = "subjectWeight";
+export const SUBJECT_GENDER = "subjectGender";
+export const SUBJECT_RUMTYPE = "subjectRemunerationType";
+export const SUBJECT_RUMDETS = "subjectRemunerationDetails";
+
 export const metaDataInfo = [
 	{
 		id: "Name",
 		label: "Name",
 		type: "text",
-		field: "subjectName",
+		field: SUBJECT_NAME,
 	},
 	{
 		id: "Age",
 		label: "Age",
 		type: "number",
-		field: "subjectAge",
+		field: SUBJECT_AGE,
 	},
 	{
 		id: "Height",
 		label: "Height",
 		type: "number",
-		field: "subjectHeight",
+		field: SUBJECT_HEIGHT,
 	},
 	{
 		id: "Weight",
 		label: "Weight",
 		type: "number",
-		field: "subjectWeight",
+		field: SUBJECT_WEIGHT,
 	},
 	{
 		id: "Gender",
 		label: "Gender",
 		type: "menu",
-		field: "subjectGender",
+		field: SUBJECT_GENDER,
 		menuItems: [
 			{ label: "Select", value: "" },
 			{ label: "Male", value: "Male" },
@@ -39,7 +50,7 @@ export const metaDataInfo = [
 		id: "RemunerationType",
 		label: "Remuneration Type",
 		type: "menu",
-		field: "subjectRemunerationType",
+		field: SUBJECT_RUMTYPE,
 		menuItems: [
 			{ label: "Select", value: "" },
 			{ label: "Account No.", value: "Account No." },
@@ -52,14 +63,6 @@ export const metaDataInfo = [
 		id: "RemunerationDetails",
 		label: "Remuneration Details",
 		type: "text",
-		field: "subjectRemunerationDetails",
+		field: SUBJECT_RUMDETS,
 	},
 ];
-
-export const SUBJECT_NAME = "subjectName";
-export const SUBJECT_AGE = "subjectAge";
-export const SUBJECT_HEIGHT = "subjectHeight";
-export const SUBJECT_WEIGHT = "subjectWeight";
-export const SUBJECT_GENDER = "subjectGender";
-export const SUBJECT_RUMTYPE = "subjectRemunerationType";
-export const SUBJECT_RUMDETS = "subjectRemunerationDetails";
