@@ -16,7 +16,6 @@ process.env["GOOGLE_APPLICATION_CREDENTIALS"] = SERVER_CONFIG_PATH;
 
 initializeApp({
 	credential: applicationDefault(),
-	databaseURL: DATABASE_URL,
 });
 
 exports.server_db = getFirestore();

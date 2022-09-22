@@ -1,21 +1,21 @@
 import React from "react";
+import { useDocumentData } from "react-firebase-hooks/firestore";
 import { SUBJECT_ID } from "../appconfig/metadata";
 import {
 	SUB_STORE_KEY_SECDONE,
 	SUB_STORE_KEY_SURVEY,
 } from "../appconfig/sections";
-import { firestoreSubjectSync } from "../firebase/client/firestore";
-
-const { allQuestions } = require("../appconfig/content/questions");
+import {
+	firestoreSubjectSync,
+	surveyDocQuery,
+} from "../firebase/client/firestore";
 
 const useQuestionnairInput = () => {
 	// States
 	const [questionState, setQuestionState] = React.useState({});
 
 	// Constants
-	const questions = React.useMemo(() => {
-		return allQuestions;
-	}, []);
+	const [questions] = useDocumentData(surveyDocQuery);
 
 	// Helpers
 	function handleNextQuestion(question, answer, next) {
@@ -69,12 +69,15 @@ const useQuestionnairInput = () => {
 
 	// Reset Question State
 	React.useEffect(() => {
-		setQuestionState({
-			allQuestions: questions,
-			currentQuestion: questions[1],
-			[SUB_STORE_KEY_SECDONE]: false,
-			answeredQs: [],
-		});
+		if (questions) {
+			console.log(questions);
+			setQuestionState({
+				allQuestions: questions,
+				currentQuestion: questions[1],
+				[SUB_STORE_KEY_SECDONE]: false,
+				answeredQs: [],
+			});
+		}
 	}, [questions]);
 
 	return [questionState, handleNextQuestion, handleSubmit];

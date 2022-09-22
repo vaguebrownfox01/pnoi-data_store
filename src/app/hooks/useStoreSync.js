@@ -4,12 +4,12 @@ import { SUBJECT_ID, SUBJECT_NAME } from "../appconfig/metadata";
 import { initSubject, SUB_STORE_KEY_BIODATA } from "../appconfig/sections";
 import {
 	firestoreSubjectSync,
-	subjectsQuery,
+	subjectsCollectionQuery,
 } from "../firebase/client/firestore";
 
 const useStoreSync = () => {
 	//
-	const [allSubjects, loading] = useCollectionData(subjectsQuery);
+	const [allSubjects, loading] = useCollectionData(subjectsCollectionQuery);
 	const [currentSubject, setCurrentSubject] = React.useState(initSubject);
 
 	function handleSubjectSelect(subjectInfo) {
