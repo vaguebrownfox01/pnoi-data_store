@@ -1,7 +1,7 @@
 import React from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { SUBJECT_NAME } from "../appconfig/metadata";
-import { initSubject } from "../appconfig/sections";
+import { SUBJECT_ID, SUBJECT_NAME } from "../appconfig/metadata";
+import { initSubject, SUB_STORE_KEY_BIODATA } from "../appconfig/sections";
 import {
 	firestoreSubjectSync,
 	subjectsQuery,
@@ -13,16 +13,23 @@ const useStoreSync = () => {
 	const [currentSubject, setCurrentSubject] = React.useState(initSubject);
 
 	function handleSubjectSelect(subjectInfo) {
+		localStorage.setItem(SUBJECT_ID, subjectInfo[SUBJECT_ID]);
+		// setCurrentSubject((p) => ({ ...p, ...subjectInfo }));
+
 		setCurrentSubject(subjectInfo);
 	}
 
 	async function handleFormInfoSync(formInfo) {
-		const syncData = await firestoreSubjectSync(
+		const afterSync = await firestoreSubjectSync(
+			SUB_STORE_KEY_BIODATA,
 			formInfo,
 			formInfo[SUBJECT_NAME]
 		);
 
-		setCurrentSubject(syncData);
+		// setCurrentSubject((p) => ({ ...p, ...syncData }));
+		setCurrentSubject(afterSync);
+
+		localStorage.setItem(SUBJECT_ID, afterSync[SUBJECT_ID]);
 	}
 
 	return [

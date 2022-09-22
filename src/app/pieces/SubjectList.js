@@ -1,6 +1,6 @@
 import SubjectIcon from "@mui/icons-material/AccountCircle";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { Box, ListItemIcon, Stack, Typography } from "@mui/material";
+import { Box, ListItemIcon } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -8,7 +8,6 @@ import ListItemText from "@mui/material/ListItemText";
 import * as React from "react";
 import { SUBJECT_AGE, SUBJECT_ID, SUBJECT_NAME } from "../appconfig/metadata";
 import { initSubject, SUB_STORE_KEY_BIODATA } from "../appconfig/sections";
-import Wait from "../components/Wait";
 
 const SubjectList = React.memo(function SubjectList({
 	allSubjects,
