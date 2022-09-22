@@ -29,17 +29,27 @@ const classes = {
 		borderColor: darktheme.palette.secondary.highlight,
 	},
 	dragAccept: {
-		borderColor: darktheme.palette.primary.main,
+		borderColor: darktheme.palette.secondary.highlight,
 	},
 	dragReject: {
 		borderColor: darktheme.palette.error.main,
 	},
 };
 
-const DropZone = React.memo(function DropZone({ dropzoneOptions }) {
+const DropZone = React.memo(function DropZone({
+	dropzoneOptions,
+	handleFileDrop,
+	fmime,
+}) {
 	const handleDrop = (files) => {
-		console.log({ files });
+		const file = files[0];
+
+		if ((file.type || "").includes(fmime)) {
+			console.log("file accepted");
+			handleFileDrop(file);
+		}
 	};
+
 	const {
 		getRootProps,
 		getInputProps,
@@ -49,7 +59,7 @@ const DropZone = React.memo(function DropZone({ dropzoneOptions }) {
 	} = useDropzone({
 		multiple: false,
 		onDrop: handleDrop,
-		// accept: "image/*",
+		// accept: fmime || null,
 		...dropzoneOptions,
 	});
 
