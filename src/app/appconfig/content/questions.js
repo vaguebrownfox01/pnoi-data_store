@@ -1,4 +1,4 @@
-const questions = {
+const allQuestions = {
 	1: {
 		qno: 1,
 		question: "What is your smoking status?",
@@ -188,4 +188,4 @@ const questions = {
 	},
 };
 
-module.exports = { questions };
+module.exports = { allQuestions };

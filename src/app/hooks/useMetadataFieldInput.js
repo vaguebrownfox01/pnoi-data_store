@@ -8,7 +8,11 @@ import {
 	SUBJECT_RUMTYPE,
 	SUBJECT_WEIGHT,
 } from "../appconfig/metadata";
-import { SUB_STORE_KEY_BIODATA } from "../appconfig/sections";
+import {
+	initSubject,
+	SUB_STORE_KEY_BIODATA,
+	SUB_STORE_KEY_SECDONE,
+} from "../appconfig/sections";
 
 const useMetadataFieldInput = (currentSubject) => {
 	// States
@@ -54,7 +58,7 @@ const useMetadataFieldInput = (currentSubject) => {
 	// Handlers
 	function handleFieldInput(f, v) {
 		let [_f, _v] = formatFieldValue(f, v);
-		setField((p) => ({ ...p, [_f]: _v }));
+		setField((p) => ({ ...p, [_f]: _v, [SUB_STORE_KEY_SECDONE]: false }));
 	}
 
 	// Effects
@@ -66,15 +70,10 @@ const useMetadataFieldInput = (currentSubject) => {
 	// Reset Field Values on Start
 	React.useEffect(() => {
 		if (currentSubject) {
-			let fillInfo = currentSubject[SUB_STORE_KEY_BIODATA];
-			setField(fillInfo);
+			setField(currentSubject[SUB_STORE_KEY_BIODATA]);
 		} else {
-			setField(
-				fields.reduce((prv, cur) => ({ ...prv, [cur.field]: "" }), {})
-			);
+			setField(initSubject[SUB_STORE_KEY_BIODATA]);
 		}
-
-		console.log("metsxx", currentSubject);
 	}, [fields, currentSubject]);
 
 	React.useDebugValue("Field Input");

@@ -7,6 +7,7 @@ const useFileUpload = (sectionInfo) => {
 	const [inputFile, setInputFile] = React.useState(null);
 	const [newFileName, setNewFileName] = React.useState("");
 
+	// Helpers
 	// 1. subject-id_ : generated uuid
 	// 2. subject-kind_ : Patient (P)/ Control (C)/ Unknown (XX)
 	// 4. data-kind_ : Vocal Lung Audio (VBA), Lung Breath Audio (LBA), PFT Report (PFT), Miscl (XXX)
@@ -15,6 +16,7 @@ const useFileUpload = (sectionInfo) => {
 	// 	return `${sid}_${skind}_${dkind}_${fhash}_.${ftype}`;
 	// }
 
+	// Handlers
 	function handleFileDrop(fileObj) {
 		setInputFile(fileObj);
 	}
@@ -38,12 +40,15 @@ const useFileUpload = (sectionInfo) => {
 		setNewFileName("");
 	}
 
+	// Effect
+	// Set filename on Drop
 	React.useEffect(() => {
 		if (inputFile) {
 			setNewFileName(inputFile.name);
 		}
 	}, [inputFile]);
 
+	// File Upload Ready Check
 	React.useEffect(() => {
 		setReady(!isUploading && newFileName && inputFile);
 	}, [inputFile, newFileName, isUploading]);

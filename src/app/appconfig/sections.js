@@ -21,6 +21,7 @@ export const SUB_STORE_KEY_PFTbf = "subjectPFTbf";
 export const SUB_STORE_KEY_VBAaf = "subjectVBAaf";
 export const SUB_STORE_KEY_LBAaf = "subjectLBAaf";
 export const SUB_STORE_KEY_PFTaf = "subjectPFTaf";
+export const SUB_STORE_KEY_SECDONE = "subjectSectionDone";
 
 export const initSubject = {
 	[SUBJECT_ID]: "",
@@ -33,6 +34,7 @@ export const initSubject = {
 		[SUBJECT_GENDER]: "Other",
 		[SUBJECT_RUMTYPE]: "Paytm",
 		[SUBJECT_RUMDETS]: "0000",
+		[SUB_STORE_KEY_SECDONE]: false,
 	},
 };
 

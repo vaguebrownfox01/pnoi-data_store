@@ -1,8 +1,10 @@
 import React from "react";
 
 const useContainerDimensions = (containerRef, effect) => {
+	// States
 	const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 });
 
+	// Effect
 	React.useEffect(() => {
 		const getDimensions = () => ({
 			width: containerRef.current.offsetWidth,
