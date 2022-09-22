@@ -4,6 +4,7 @@ import {
 	SUBJECT_AGE,
 	SUBJECT_HEIGHT,
 	SUBJECT_NAME,
+	SUBJECT_RUMDETS,
 	SUBJECT_RUMTYPE,
 	SUBJECT_WEIGHT,
 } from "../appconfig/metadata";
@@ -36,7 +37,7 @@ const useMetadataFieldInput = (currentSubject) => {
 				return [_field, `${weight}`];
 			case SUBJECT_RUMTYPE:
 				return [_field, _value];
-			case SUBJECT_RUMTYPE:
+			case SUBJECT_RUMDETS:
 				return [_field, _value];
 			default:
 				return [_field, _value];
@@ -64,7 +65,6 @@ const useMetadataFieldInput = (currentSubject) => {
 
 	// Reset Field Values on Start
 	React.useEffect(() => {
-		console.log({ currentSubject });
 		if (currentSubject) {
 			let fillInfo = currentSubject[SUB_STORE_KEY_BIODATA];
 			setField(fillInfo);
@@ -73,6 +73,8 @@ const useMetadataFieldInput = (currentSubject) => {
 				fields.reduce((prv, cur) => ({ ...prv, [cur.field]: "" }), {})
 			);
 		}
+
+		console.log("metsxx", currentSubject);
 	}, [fields, currentSubject]);
 
 	React.useDebugValue("Field Input");

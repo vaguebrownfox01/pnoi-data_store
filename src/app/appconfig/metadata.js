@@ -1,5 +1,3 @@
-import { SUB_STORE_KEY_BIODATA } from "./sections";
-
 export const SUBJECT_ID = "firebaseId";
 export const SUBJECT_NAME = "subjectName";
 export const SUBJECT_AGE = "subjectAge";

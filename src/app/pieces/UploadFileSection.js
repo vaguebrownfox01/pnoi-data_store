@@ -10,7 +10,7 @@ const UploadFileSection = React.memo(function UploadFileSection(props) {
 	const [
 		isReady,
 		isUploading,
-		inputFile,
+		,
 		newFileName,
 		handleFileDrop,
 		handleFileNameInput,

@@ -1,4 +1,7 @@
 import React from "react";
+import { SUBJECT_ID } from "../appconfig/metadata";
+import { SUB_STORE_KEY_SURVEY } from "../appconfig/sections";
+import { firestoreSubjectSync } from "../firebase/client/firestore";
 
 const { questions } = require("../appconfig/content/questions");
 
@@ -46,14 +49,17 @@ const useQuestionnairInput = () => {
 
 	function handleSubmit() {
 		//TODO: write to firebase
-		console.log("write to firebase pending");
-		console.log(questionState);
+
+		const key = localStorage.getItem(SUBJECT_ID);
+
+		let surveyData = { [SUBJECT_ID]: key, ...questionState };
+
+		firestoreSubjectSync(SUB_STORE_KEY_SURVEY, surveyData, "");
 	}
 
 	React.useDebugValue("Questionnair Input");
 
 	React.useEffect(() => {
-		console.log({ questions });
 		setQuestionState({
 			allQuestions: questions,
 			currentQuestion: questions[1],
