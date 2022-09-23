@@ -1,6 +1,7 @@
 import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 import { SUBJECT_ID } from "../../appconfig/metadata";
+import { initSubject } from "../../appconfig/sections";
 import {
 	SUBJECT_COLLECTION,
 	SUBJECT_UUID_LEN,
@@ -11,23 +12,37 @@ import { db } from "../creds/client";
 export const subjectsCollectionQuery = collection(db, SUBJECT_COLLECTION);
 export const surveyDocQuery = doc(db, SURVEY_DOC_PATH);
 
-export const firestoreSubjectSync = async (key, data, idTag) => {
+export const firestoreSubjectSync = async (sectionKey, data, idTag) => {
 	let storSync = updateDoc;
-	if (!data[SUBJECT_ID]) {
-		data[SUBJECT_ID] = getId(idTag);
+
+	const _data = { ...data };
+	let document = {
+		[SUBJECT_ID]: _data[SUBJECT_ID],
+	};
+
+	if (!document[SUBJECT_ID]) {
 		storSync = setDoc;
+
+		let _id = getId(idTag);
+
+		document = {
+			...initSubject,
+			[SUBJECT_ID]: _id,
+		};
+
+		_data[SUBJECT_ID] = _id;
 	}
 
-	const document = {
-		[SUBJECT_ID]: data[SUBJECT_ID],
-		[key]: data,
+	document = {
+		...document,
+		[sectionKey]: _data,
 	};
 
 	const docPath = `/${SUBJECT_COLLECTION}/${document[SUBJECT_ID]}`;
 
 	await storSync(doc(db, docPath), document).catch((err) => {
 		console.log("fb firestore error :: ", err);
-		return null;
+		document = null;
 	});
 
 	return document;
