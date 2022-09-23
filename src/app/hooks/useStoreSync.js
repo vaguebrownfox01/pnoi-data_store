@@ -22,8 +22,6 @@ const useStoreSync = (setSectionState) => {
 	const [currentSubject, setCurrentSubject] = React.useState(initSubject);
 
 	function handleSubjectSelect(subjectInfo) {
-		localStorage.setItem(SUBJECT_ID, subjectInfo[SUBJECT_ID]);
-		localStorage.setItem(CURRENT_SUBJECT, JSON.stringify(subjectInfo));
 		setCurrentSubject(subjectInfo);
 	}
 
@@ -42,6 +40,7 @@ const useStoreSync = (setSectionState) => {
 	React.useEffect(() => {
 		if (currentSubject) {
 			console.log({ currentSubject });
+			localStorage.setItem(SUBJECT_ID, currentSubject[SUBJECT_ID]);
 
 			allSections.forEach((sectionKey) => {
 				const state = currentSubject[sectionKey][SUB_STORE_KEY_SECDONE];
