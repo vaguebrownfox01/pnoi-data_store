@@ -73,7 +73,7 @@ export const initSubject = {
 export const appSectionsInfo = [
 	{
 		title: "Add subject",
-		key: SUB_STORE_KEY_BIODATA,
+		sectionKey: SUB_STORE_KEY_BIODATA,
 		ftag: "META",
 		when: "before/ no inhaler",
 		fmime: "na",
@@ -81,7 +81,7 @@ export const appSectionsInfo = [
 	},
 	{
 		title: "Questionnair",
-		key: SUB_STORE_KEY_SURVEY,
+		sectionKey: SUB_STORE_KEY_SURVEY,
 		ftag: "SURVEY",
 		when: "before/ no inhaler",
 		fmime: "na",
@@ -89,7 +89,7 @@ export const appSectionsInfo = [
 	},
 	{
 		title: "Vocal Breath Audio",
-		key: SUB_STORE_KEY_VBAbf,
+		sectionKey: SUB_STORE_KEY_VBAbf,
 		ftag: "VBA-before",
 		when: "before/ no inhaler",
 		color: pink[400],
@@ -98,7 +98,7 @@ export const appSectionsInfo = [
 	},
 	{
 		title: "Lung Breath Audio",
-		key: SUB_STORE_KEY_LBAbf,
+		sectionKey: SUB_STORE_KEY_LBAbf,
 		ftag: "LBA-before",
 		when: "before/ no inhaler",
 		color: pink[400],
@@ -107,7 +107,7 @@ export const appSectionsInfo = [
 	},
 	{
 		title: "PFT Report",
-		key: SUB_STORE_KEY_PFTbf,
+		sectionKey: SUB_STORE_KEY_PFTbf,
 		ftag: "PFT-before",
 		when: "before/ no inhaler",
 		color: pink[400],
@@ -116,7 +116,7 @@ export const appSectionsInfo = [
 	},
 	{
 		title: "Vocal Breath Audio",
-		key: SUB_STORE_KEY_VBAaf,
+		sectionKey: SUB_STORE_KEY_VBAaf,
 		ftag: "VBA-after",
 		when: "after inhaler",
 		color: orange[400],
@@ -125,7 +125,7 @@ export const appSectionsInfo = [
 	},
 	{
 		title: "Lung Breath Audio",
-		key: SUB_STORE_KEY_LBAaf,
+		sectionKey: SUB_STORE_KEY_LBAaf,
 		ftag: "LBA-after",
 		when: "after inhaler",
 		color: orange[400],
@@ -134,7 +134,7 @@ export const appSectionsInfo = [
 	},
 	{
 		title: "PFT Report",
-		key: SUB_STORE_KEY_PFTaf,
+		sectionKey: SUB_STORE_KEY_PFTaf,
 		ftag: "PFT-after",
 		when: "after inhaler",
 		color: orange[400],
