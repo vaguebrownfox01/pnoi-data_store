@@ -1,7 +1,10 @@
 import React from "react";
+import { SUBJECT_ID } from "../appconfig/metadata";
+import { SUB_STORE_KEY_SECDONE } from "../appconfig/sections";
+import { firestoreSubjectSync } from "../firebase/client/firestore";
 import { firebaseFileUpload } from "../firebase/client/storage";
 
-const useFileUpload = (sectionInfo) => {
+const useFileUpload = (props) => {
 	const [isUploading, setIsUploading] = React.useState(false);
 	const [isReady, setReady] = React.useState(false);
 	const [inputFile, setInputFile] = React.useState(null);
@@ -28,14 +31,32 @@ const useFileUpload = (sectionInfo) => {
 	}
 
 	async function handleFileUpload() {
-		setIsUploading(true);
+		// Current Selected Subject Key
+		const key = localStorage.getItem(SUBJECT_ID);
+		if (!key) return false;
 
 		if (inputFile) {
-			await firebaseFileUpload(inputFile, newFileName);
+			setIsUploading(true);
+
+			const { sectionKey, setSectionState } = props;
+			let uploadData = {
+				[SUBJECT_ID]: key,
+				fileName: newFileName,
+				[SUB_STORE_KEY_SECDONE]: true,
+			};
+
+			const _done = await firebaseFileUpload(inputFile, newFileName);
+			const _data = await firestoreSubjectSync(
+				sectionKey,
+				uploadData,
+				"na"
+			);
+
+			setSectionState(sectionKey, _done && _data);
+			setIsUploading(false);
 		}
 
 		// Reset
-		setIsUploading(false);
 		setInputFile(null);
 		setNewFileName("");
 	}
