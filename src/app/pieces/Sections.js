@@ -8,6 +8,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import { green, yellow } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import Wait from "../components/Wait";
 import useAppSections from "../hooks/useAppSections";
 
 const Sections = React.memo(function Sections() {
@@ -44,7 +45,9 @@ const Sections = React.memo(function Sections() {
 						</Stack>
 					</AccordionSummary>
 					<AccordionDetails sx={{ m: 2, mt: 0 }}>
-						{dataPt.component}
+						<React.Suspense fallback={<Wait />}>
+							{dataPt.component}
+						</React.Suspense>
 					</AccordionDetails>
 				</Accordion>
 			))}

@@ -1,7 +1,6 @@
+import * as React from "react";
 import { orange, pink } from "@mui/material/colors";
-import MetadataSection from "../pieces/MetadataSection";
-import QuestionnairSection from "../pieces/QuestionnairSection";
-import UploadFileSection from "../pieces/UploadFileSection";
+
 import {
 	SUBJECT_AGE,
 	SUBJECT_GENDER,
@@ -12,6 +11,14 @@ import {
 	SUBJECT_RUMTYPE,
 	SUBJECT_WEIGHT,
 } from "./metadata";
+
+const MetadataSection = React.lazy(() => import("../pieces/MetadataSection"));
+const QuestionnairSection = React.lazy(() =>
+	import("../pieces/QuestionnairSection")
+);
+const UploadFileSection = React.lazy(() =>
+	import("../pieces/UploadFileSection")
+);
 
 export const SUB_STORE_KEY_BIODATA = "subjectBiodata";
 export const SUB_STORE_KEY_SURVEY = "subjectSurvey";
