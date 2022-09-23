@@ -7,6 +7,8 @@ export const SUBJECT_GENDER = "subjectGender";
 export const SUBJECT_RUMTYPE = "subjectRemunerationType";
 export const SUBJECT_RUMDETS = "subjectRemunerationDetails";
 
+export const CURRENT_SUBJECT = "currentSubject";
+
 export const metaDataInfo = [
 	{
 		id: "Name",

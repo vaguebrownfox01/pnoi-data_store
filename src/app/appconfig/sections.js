@@ -23,6 +23,17 @@ export const SUB_STORE_KEY_LBAaf = "subjectLBAaf";
 export const SUB_STORE_KEY_PFTaf = "subjectPFTaf";
 export const SUB_STORE_KEY_SECDONE = "subjectSectionDone";
 
+export const allSections = [
+	SUB_STORE_KEY_BIODATA,
+	SUB_STORE_KEY_SURVEY,
+	SUB_STORE_KEY_VBAbf,
+	SUB_STORE_KEY_LBAbf,
+	SUB_STORE_KEY_PFTbf,
+	SUB_STORE_KEY_VBAaf,
+	SUB_STORE_KEY_LBAaf,
+	SUB_STORE_KEY_PFTaf,
+];
+
 export const initSubject = {
 	[SUBJECT_ID]: "",
 	[SUB_STORE_KEY_BIODATA]: {
@@ -34,6 +45,27 @@ export const initSubject = {
 		[SUBJECT_GENDER]: "Other",
 		[SUBJECT_RUMTYPE]: "Paytm",
 		[SUBJECT_RUMDETS]: "0000",
+		[SUB_STORE_KEY_SECDONE]: false,
+	},
+	[SUB_STORE_KEY_SURVEY]: {
+		[SUB_STORE_KEY_SECDONE]: false,
+	},
+	[SUB_STORE_KEY_VBAbf]: {
+		[SUB_STORE_KEY_SECDONE]: false,
+	},
+	[SUB_STORE_KEY_LBAbf]: {
+		[SUB_STORE_KEY_SECDONE]: false,
+	},
+	[SUB_STORE_KEY_PFTbf]: {
+		[SUB_STORE_KEY_SECDONE]: false,
+	},
+	[SUB_STORE_KEY_VBAaf]: {
+		[SUB_STORE_KEY_SECDONE]: false,
+	},
+	[SUB_STORE_KEY_LBAaf]: {
+		[SUB_STORE_KEY_SECDONE]: false,
+	},
+	[SUB_STORE_KEY_PFTaf]: {
 		[SUB_STORE_KEY_SECDONE]: false,
 	},
 };
