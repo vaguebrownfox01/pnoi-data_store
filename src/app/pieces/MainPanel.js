@@ -1,9 +1,9 @@
-import { Button, Fab, Stack } from "@mui/material";
+import LockIcon from "@mui/icons-material/Lock";
+import { Fab, Stack } from "@mui/material";
 import * as React from "react";
 import useAuth from "../hooks/useAuth";
 import AuthModal from "./AuthModal";
 import Sections from "./Sections";
-import LockIcon from "@mui/icons-material/Lock";
 
 const MainPanel = React.memo(function MainPanel() {
 	const [user, handleAuth, handleLogout] = useAuth();

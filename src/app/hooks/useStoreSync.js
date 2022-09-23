@@ -1,10 +1,6 @@
 import React from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import {
-	CURRENT_SUBJECT,
-	SUBJECT_ID,
-	SUBJECT_NAME,
-} from "../appconfig/metadata";
+import { SUBJECT_ID, SUBJECT_NAME } from "../appconfig/metadata";
 import {
 	allSections,
 	initSubject,
