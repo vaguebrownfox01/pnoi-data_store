@@ -16,7 +16,7 @@ const Sections = React.memo(function Sections() {
 	return (
 		<div>
 			{sections.map((dataPt, i) => (
-				<Accordion key={`panel1a-header-${i}-key`}>
+				<Accordion key={`panel1a-header-${i}-key`} square={false}>
 					<AccordionSummary
 						expandIcon={<ExpandMoreIcon />}
 						aria-controls="panel1a-content"
@@ -24,7 +24,7 @@ const Sections = React.memo(function Sections() {
 					>
 						{sectionStatus && (
 							<AccordionActions>
-								{sectionStatus[dataPt["key"]] ? ( // TODO: section state indicator
+								{sectionStatus[dataPt["sectionKey"]] ? (
 									<CloudDoneIcon sx={{ color: green[400] }} />
 								) : (
 									<PendingIcon sx={{ color: yellow[400] }} />

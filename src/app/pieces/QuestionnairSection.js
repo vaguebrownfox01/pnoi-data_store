@@ -9,7 +9,6 @@ import {
 } from "../appconfig/sections";
 import Wait from "../components/Wait";
 import useQuestionnairInput from "../hooks/useQuestionnairInput";
-import { CURRENT_SUBJECT } from "../appconfig/metadata";
 
 const QuestionnairSection = React.memo(function QuestionnairSection({
 	setSectionState,
