@@ -31,7 +31,7 @@ const useAppSections = () => {
 
 	React.useEffect(() => {
 		const sectionStates = sections.reduce(
-			(prv, cur) => ({ ...prv, [cur["key"]]: false }),
+			(prv, cur) => ({ ...prv, [cur["sectionKey"]]: false }),
 			{}
 		);
 		setSectionStatus(sectionStates);
