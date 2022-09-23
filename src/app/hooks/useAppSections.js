@@ -2,30 +2,42 @@ import * as React from "react";
 import { appSectionsInfo } from "../appconfig/sections";
 
 const useAppSections = () => {
+	// States
+	const [sectionStatus, setSectionStatus] = React.useState();
+
+	function handleSetSectionState(sectionKey, isDone) {
+		setSectionStatus((p) => ({ ...p, [sectionKey]: isDone }));
+	}
+
 	// Helpers
-	function propChild(child, props) {
+	const propChild = React.useCallback((child, props) => {
 		return React.isValidElement(child) ? (
 			React.cloneElement(child, {
 				...props,
+				setSectionState: handleSetSectionState,
 			})
 		) : (
 			<></>
 		);
-	}
+	}, []);
 
 	// Constants
-	const sections = React.useMemo(
-		() =>
-			appSectionsInfo.map((d) => ({
-				...d,
-				component: propChild(d.component, d),
-			})),
-		[]
-	);
+	const sections = React.useMemo(() => {
+		return appSectionsInfo.map((d) => ({
+			...d,
+			component: propChild(d.component, d),
+		}));
+	}, [propChild]);
 
-	// const [sectionStatus, setSectionStatus] = React.useState()
+	React.useEffect(() => {
+		const sectionStates = sections.reduce(
+			(prv, cur) => ({ ...prv, [cur["key"]]: false }),
+			{}
+		);
+		setSectionStatus(sectionStates);
+	}, [sections]);
 
-	return [sections];
+	return [sections, sectionStatus];
 };
 
 export default useAppSections;

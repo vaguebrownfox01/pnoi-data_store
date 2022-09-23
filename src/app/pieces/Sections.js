@@ -1,17 +1,17 @@
-import * as React from "react";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { AccordionActions, Stack } from "@mui/material";
-import PendingIcon from "@mui/icons-material/Pending";
-import { green, orange } from "@mui/material/colors";
 import CloudDoneIcon from "@mui/icons-material/CloudDone";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import PendingIcon from "@mui/icons-material/Pending";
+import { AccordionActions, Stack } from "@mui/material";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import { green, yellow } from "@mui/material/colors";
+import Typography from "@mui/material/Typography";
+import * as React from "react";
 import useAppSections from "../hooks/useAppSections";
 
 const Sections = React.memo(function Sections() {
-	const [sections] = useAppSections();
+	const [sections, sectionStatus] = useAppSections();
 
 	return (
 		<div>
@@ -22,13 +22,15 @@ const Sections = React.memo(function Sections() {
 						aria-controls="panel1a-content"
 						id={`panel1a-header-${i}`}
 					>
-						<AccordionActions>
-							{i % 3 ? ( // TODO: section state indicator
-								<PendingIcon sx={{ color: orange[400] }} />
-							) : (
-								<CloudDoneIcon sx={{ color: green[400] }} />
-							)}
-						</AccordionActions>
+						{sectionStatus && (
+							<AccordionActions>
+								{sectionStatus[dataPt["key"]] ? ( // TODO: section state indicator
+									<CloudDoneIcon sx={{ color: green[400] }} />
+								) : (
+									<PendingIcon sx={{ color: yellow[400] }} />
+								)}
+							</AccordionActions>
+						)}
 						<Stack sx={{ ml: 2 }}>
 							<Typography variant="h6">{dataPt.title}</Typography>
 							<Typography

@@ -3,16 +3,28 @@ import * as React from "react";
 
 import QuestionCard from "./QuestionCard";
 
-import { SUB_STORE_KEY_SECDONE } from "../appconfig/sections";
+import {
+	SUB_STORE_KEY_SECDONE,
+	SUB_STORE_KEY_SURVEY,
+} from "../appconfig/sections";
 import Wait from "../components/Wait";
 import useQuestionnairInput from "../hooks/useQuestionnairInput";
+import { CURRENT_SUBJECT } from "../appconfig/metadata";
 
-const QuestionnairSection = React.memo(function QuestionnairSection() {
+const QuestionnairSection = React.memo(function QuestionnairSection({
+	setSectionState,
+}) {
 	const [questionState, handleNextQuestion, handleSubmit] =
 		useQuestionnairInput();
 
 	const handleQuestionSubmit = (answer, next) => {
 		handleNextQuestion(questionState.currentQuestion, answer, next);
+	};
+
+	const handleQuestionSubmitData = async () => {
+		const done = await handleSubmit();
+
+		setSectionState(SUB_STORE_KEY_SURVEY, done);
 	};
 
 	return (
@@ -34,7 +46,7 @@ const QuestionnairSection = React.memo(function QuestionnairSection() {
 					<Stack sx={{ mt: 4 }} justifyContent="center">
 						<Button
 							variant="contained"
-							onClick={handleSubmit}
+							onClick={handleQuestionSubmitData}
 							disabled={!questionState[SUB_STORE_KEY_SECDONE]}
 						>
 							Submit

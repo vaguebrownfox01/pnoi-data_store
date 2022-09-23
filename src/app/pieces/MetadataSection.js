@@ -9,6 +9,11 @@ import {
 	TextField,
 } from "@mui/material";
 import * as React from "react";
+import {
+	allSections,
+	SUB_STORE_KEY_BIODATA,
+	SUB_STORE_KEY_SECDONE,
+} from "../appconfig/sections";
 import useMetadataFieldInput from "../hooks/useMetadataFieldInput";
 import useStoreSync from "../hooks/useStoreSync";
 import SubjectList from "./SubjectList";
@@ -24,27 +29,30 @@ const classes = {
 	selectMenu: (t) => ({ maxWidth: t.spacing(32) }),
 };
 
-const MetadataSection = React.memo(function MetadataSection() {
+const MetadataSection = React.memo(function MetadataSection({
+	setSectionState,
+}) {
 	const [
 		loading,
 		allSubjects,
 		currentSubject,
 		handleSubjectSelect,
 		handleFormInfoSync,
-	] = useStoreSync();
+	] = useStoreSync(setSectionState);
+
 	const [fields, field, done, handleFieldInput] =
 		useMetadataFieldInput(currentSubject);
 
 	function handleFormInputData({ target }) {
 		const { value: _value } = target;
 		const _field = this.field;
-
 		handleFieldInput(_field, _value);
+		setSectionState(SUB_STORE_KEY_BIODATA, false);
 	}
 
-	function handleFormSubmitData() {
-		console.log({ metadatafields: field });
-		handleFormInfoSync(field);
+	async function handleFormSubmitData() {
+		await handleFormInfoSync(field);
+		setSectionState(SUB_STORE_KEY_BIODATA, true);
 	}
 
 	return (

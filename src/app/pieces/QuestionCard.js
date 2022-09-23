@@ -44,7 +44,6 @@ const QuestionCard = React.memo(function QuestionCard({
 
 	function handleNext() {
 		if (!answer.answer && this.next) return;
-		console.log("next", this.next);
 		let ans = answer;
 		setAnswer(() => ({ question: null, answer: null }));
 

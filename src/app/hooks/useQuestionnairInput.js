@@ -57,20 +57,27 @@ const useQuestionnairInput = () => {
 		}
 	}
 
-	function handleSubmit() {
+	async function handleSubmit() {
+		// Current Selected Subject Key
 		const key = localStorage.getItem(SUBJECT_ID);
 
-		let surveyData = { [SUBJECT_ID]: key, ...questionState };
+		let surveyData = {
+			[SUBJECT_ID]: key,
+			...questionState,
+			[SUB_STORE_KEY_SECDONE]: true,
+		};
 
-		firestoreSubjectSync(SUB_STORE_KEY_SURVEY, surveyData, "");
+		const data = await firestoreSubjectSync(
+			SUB_STORE_KEY_SURVEY,
+			surveyData,
+			"na"
+		);
+
+		return !!data;
 	}
 
-	React.useDebugValue("Questionnair Input");
-
-	// Reset Question State
-	React.useEffect(() => {
+	const handleResetQuestion = React.useCallback(() => {
 		if (questions) {
-			console.log(questions);
 			setQuestionState({
 				allQuestions: questions,
 				currentQuestion: questions[1],
@@ -79,6 +86,13 @@ const useQuestionnairInput = () => {
 			});
 		}
 	}, [questions]);
+
+	React.useDebugValue("Questionnair Input");
+
+	// Reset Question State
+	React.useEffect(() => {
+		handleResetQuestion();
+	}, [handleResetQuestion]);
 
 	return [questionState, handleNextQuestion, handleSubmit];
 };
