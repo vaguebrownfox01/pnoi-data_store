@@ -17,4 +17,6 @@ export const firebaseFileUpload = async (fileObj, newFileName) => {
 	});
 
 	console.log("upload result: ", res?.metadata || "error");
+
+	return !!res;
 };
