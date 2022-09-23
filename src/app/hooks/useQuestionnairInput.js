@@ -31,7 +31,6 @@ const useQuestionnairInput = () => {
 			}
 
 			const _qdone = nextQno === -1;
-
 			const _answeredQ = { ...question, answer: answer.answer };
 
 			setQuestionState((p) => ({
@@ -61,6 +60,8 @@ const useQuestionnairInput = () => {
 		// Current Selected Subject Key
 		const key = localStorage.getItem(SUBJECT_ID);
 
+		if (!key) return false;
+
 		let surveyData = {
 			[SUBJECT_ID]: key,
 			...questionState,
@@ -72,6 +73,8 @@ const useQuestionnairInput = () => {
 			surveyData,
 			"na"
 		);
+
+		data && setQuestionState(data[SUB_STORE_KEY_SURVEY]);
 
 		return !!data;
 	}
