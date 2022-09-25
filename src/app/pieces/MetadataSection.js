@@ -9,11 +9,7 @@ import {
 	TextField,
 } from "@mui/material";
 import * as React from "react";
-import {
-	allSections,
-	SUB_STORE_KEY_BIODATA,
-	SUB_STORE_KEY_SECDONE,
-} from "../appconfig/sections";
+import { SUB_STORE_KEY_BIODATA } from "../appconfig/sections";
 import useMetadataFieldInput from "../hooks/useMetadataFieldInput";
 import useStoreSync from "../hooks/useStoreSync";
 import SubjectList from "./SubjectList";

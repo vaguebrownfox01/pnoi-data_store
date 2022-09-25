@@ -46,13 +46,16 @@ const useFileUpload = (props) => {
 			};
 
 			const _done = await firebaseFileUpload(inputFile, newFileName);
-			const _data = await firestoreSubjectSync(
-				sectionKey,
-				uploadData,
-				"na"
-			);
+			if (_done) {
+				const _data = await firestoreSubjectSync(
+					sectionKey,
+					uploadData,
+					"na"
+				);
+				setSectionState(sectionKey, !!_data);
+				console.log({ _done, _data });
+			}
 
-			setSectionState(sectionKey, _done && _data);
 			setIsUploading(false);
 		}
 

@@ -1,7 +1,6 @@
+import * as React from "react";
 import { orange, pink } from "@mui/material/colors";
-import MetadataSection from "../pieces/MetadataSection";
-import QuestionnairSection from "../pieces/QuestionnairSection";
-import UploadFileSection from "../pieces/UploadFileSection";
+
 import {
 	SUBJECT_AGE,
 	SUBJECT_GENDER,
@@ -12,6 +11,14 @@ import {
 	SUBJECT_RUMTYPE,
 	SUBJECT_WEIGHT,
 } from "./metadata";
+
+const MetadataSection = React.lazy(() => import("../pieces/MetadataSection"));
+const QuestionnairSection = React.lazy(() =>
+	import("../pieces/QuestionnairSection")
+);
+const UploadFileSection = React.lazy(() =>
+	import("../pieces/UploadFileSection")
+);
 
 export const SUB_STORE_KEY_BIODATA = "subjectBiodata";
 export const SUB_STORE_KEY_SURVEY = "subjectSurvey";
@@ -38,13 +45,13 @@ export const initSubject = {
 	[SUBJECT_ID]: "",
 	[SUB_STORE_KEY_BIODATA]: {
 		[SUBJECT_ID]: "",
-		[SUBJECT_NAME]: "Test Sub",
-		[SUBJECT_AGE]: "0",
-		[SUBJECT_HEIGHT]: "0",
-		[SUBJECT_WEIGHT]: "0",
-		[SUBJECT_GENDER]: "Other",
-		[SUBJECT_RUMTYPE]: "Paytm",
-		[SUBJECT_RUMDETS]: "0000",
+		[SUBJECT_NAME]: "",
+		[SUBJECT_AGE]: "",
+		[SUBJECT_HEIGHT]: "",
+		[SUBJECT_WEIGHT]: "",
+		[SUBJECT_GENDER]: "",
+		[SUBJECT_RUMTYPE]: "",
+		[SUBJECT_RUMDETS]: "",
 		[SUB_STORE_KEY_SECDONE]: false,
 	},
 	[SUB_STORE_KEY_SURVEY]: {
