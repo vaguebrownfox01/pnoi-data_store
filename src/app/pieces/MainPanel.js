@@ -2,8 +2,8 @@ import LockIcon from "@mui/icons-material/Lock";
 import { Fab, Stack } from "@mui/material";
 import * as React from "react";
 import useAuth from "../hooks/useAuth";
-import AuthModal from "./AuthModal";
-import Sections from "./Sections";
+const AuthModal = React.lazy(() => import("../pieces/AuthModal"));
+const Sections = React.lazy(() => import("../pieces/Sections"));
 
 const MainPanel = React.memo(function MainPanel() {
 	const [user, handleAuth, handleLogout] = useAuth();
@@ -18,7 +18,6 @@ const MainPanel = React.memo(function MainPanel() {
 				<Fab
 					sx={{ mt: 2 }}
 					size="small"
-					color="grey"
 					aria-label="logout"
 					onClick={handleLogout}
 				>
