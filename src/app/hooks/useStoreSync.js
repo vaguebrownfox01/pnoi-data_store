@@ -13,7 +13,6 @@ import {
 } from "../firebase/client/firestore";
 
 const useStoreSync = (setSectionState) => {
-	//
 	const [allSubjects, loading] = useCollectionData(subjectsCollectionQuery);
 	const [currentSubject, setCurrentSubject] = React.useState(initSubject);
 
