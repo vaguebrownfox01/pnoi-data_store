@@ -2,11 +2,11 @@ import UploadIcon from "@mui/icons-material/UploadRounded";
 import { Button, Stack, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import * as React from "react";
-import DropZone from "../components/DropZone";
-import Wait from "../components/Wait";
-import useFileUpload from "../hooks/useFileUpload";
+import DropZone from "../../layouts/DropZone";
+import Wait from "../../layouts/Wait";
+import useFileUpload from "../../hooks/useFileUpload";
 
-const UploadFileSection = React.memo(function UploadFileSection(props) {
+const UploadSection = React.memo(function UploadSection(props) {
 	const [
 		isReady,
 		isUploading,
@@ -57,4 +57,4 @@ const UploadFileSection = React.memo(function UploadFileSection(props) {
 	);
 });
 
-export default UploadFileSection;
+export default UploadSection;

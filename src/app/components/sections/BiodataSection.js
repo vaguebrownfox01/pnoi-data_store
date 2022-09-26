@@ -12,10 +12,10 @@ import * as React from "react";
 import {
 	SUB_STORE_KEY_BIODATA,
 	SUB_STORE_KEY_SECDONE,
-} from "../appconfig/sections";
-import useMetadataFieldInput from "../hooks/useMetadataFieldInput";
-import useStoreSync from "../hooks/useStoreSync";
-import SubjectList from "./SubjectList";
+} from "../../appconfig/sections";
+import useMetadataFieldInput from "../../hooks/useMetadataFieldInput";
+import useStoreSync from "../../hooks/useStoreSync";
+import SubjectList from "../pieces/SubjectList";
 
 const classes = {
 	fieldRoot: { ml: 2, mr: 1 },
@@ -28,9 +28,7 @@ const classes = {
 	selectMenu: (t) => ({ maxWidth: t.spacing(32) }),
 };
 
-const MetadataSection = React.memo(function MetadataSection({
-	setSectionState,
-}) {
+const BiodataSection = React.memo(function BiodataSection({ setSectionState }) {
 	const [allSubjects, currentSubject, handleSubjectSelect, handleStorSync] =
 		useStoreSync(setSectionState);
 
@@ -67,7 +65,7 @@ const MetadataSection = React.memo(function MetadataSection({
 							id={f.id}
 							label={f.label}
 							type={f.type}
-							value={field[f.field] || ""}
+							value={biodata[f.field] || ""}
 							onChange={handleFormInputData.bind({
 								field: f.field,
 							})}
@@ -121,4 +119,4 @@ const MetadataSection = React.memo(function MetadataSection({
 	);
 });
 
-export default MetadataSection;
+export default BiodataSection;

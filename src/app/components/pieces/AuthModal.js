@@ -8,7 +8,7 @@ import {
 	Typography,
 } from "@mui/material";
 import * as React from "react";
-import Wait from "../components/Wait";
+import Wait from "../../layouts/Wait";
 
 const classes = {
 	modalContent: {

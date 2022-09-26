@@ -1,6 +1,6 @@
 import * as React from "react";
-import Layout from "./components/Layout";
-import MainPanel from "./pieces/MainPanel";
+import Layout from "./layouts/Layout";
+import MainPanel from "./components/MainPanel";
 
 const App = React.memo(function App() {
 	return (

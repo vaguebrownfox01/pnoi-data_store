@@ -6,8 +6,12 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import * as React from "react";
-import { SUBJECT_AGE, SUBJECT_ID, SUBJECT_NAME } from "../appconfig/metadata";
-import { initSubject, SUB_STORE_KEY_BIODATA } from "../appconfig/sections";
+import {
+	SUBJECT_AGE,
+	SUBJECT_ID,
+	SUBJECT_NAME,
+} from "../../appconfig/metadata";
+import { initSubject, SUB_STORE_KEY_BIODATA } from "../../appconfig/sections";
 
 const SubjectList = React.memo(function SubjectList({
 	list,

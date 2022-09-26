@@ -12,12 +12,14 @@ import {
 	SUBJECT_WEIGHT,
 } from "./metadata";
 
-const MetadataSection = React.lazy(() => import("../pieces/MetadataSection"));
-const QuestionnairSection = React.lazy(() =>
-	import("../pieces/QuestionnairSection")
+const BiodataSection = React.lazy(() =>
+	import("../components/sections/BiodataSection")
 );
-const UploadFileSection = React.lazy(() =>
-	import("../pieces/UploadFileSection")
+const SurveySection = React.lazy(() =>
+	import("../components/sections/SurveySection")
+);
+const UploadSection = React.lazy(() =>
+	import("../components/sections/UploadSection")
 );
 
 export const SUB_STORE_KEY_BIODATA = "subjectBiodata";
@@ -55,24 +57,31 @@ export const initSubject = {
 		[SUB_STORE_KEY_SECDONE]: false,
 	},
 	[SUB_STORE_KEY_SURVEY]: {
+		[SUBJECT_ID]: "",
 		[SUB_STORE_KEY_SECDONE]: false,
 	},
 	[SUB_STORE_KEY_VBAbf]: {
+		[SUBJECT_ID]: "",
 		[SUB_STORE_KEY_SECDONE]: false,
 	},
 	[SUB_STORE_KEY_LBAbf]: {
+		[SUBJECT_ID]: "",
 		[SUB_STORE_KEY_SECDONE]: false,
 	},
 	[SUB_STORE_KEY_PFTbf]: {
+		[SUBJECT_ID]: "",
 		[SUB_STORE_KEY_SECDONE]: false,
 	},
 	[SUB_STORE_KEY_VBAaf]: {
+		[SUBJECT_ID]: "",
 		[SUB_STORE_KEY_SECDONE]: false,
 	},
 	[SUB_STORE_KEY_LBAaf]: {
+		[SUBJECT_ID]: "",
 		[SUB_STORE_KEY_SECDONE]: false,
 	},
 	[SUB_STORE_KEY_PFTaf]: {
+		[SUBJECT_ID]: "",
 		[SUB_STORE_KEY_SECDONE]: false,
 	},
 };
@@ -84,7 +93,7 @@ export const appSectionsInfo = [
 		ftag: "META",
 		when: "before/ no inhaler",
 		fmime: "na",
-		component: <MetadataSection />,
+		component: <BiodataSection />,
 	},
 	{
 		title: "Questionnair",
@@ -92,7 +101,7 @@ export const appSectionsInfo = [
 		ftag: "SURVEY",
 		when: "before/ no inhaler",
 		fmime: "na",
-		component: <QuestionnairSection />,
+		component: <SurveySection />,
 	},
 	{
 		title: "Vocal Breath Audio",
@@ -101,7 +110,7 @@ export const appSectionsInfo = [
 		when: "before/ no inhaler",
 		color: pink[400],
 		fmime: "audio/",
-		component: <UploadFileSection />,
+		component: <UploadSection />,
 	},
 	{
 		title: "Lung Breath Audio",
@@ -110,7 +119,7 @@ export const appSectionsInfo = [
 		when: "before/ no inhaler",
 		color: pink[400],
 		fmime: "audio/",
-		component: <UploadFileSection />,
+		component: <UploadSection />,
 	},
 	{
 		title: "PFT Report",
@@ -119,7 +128,7 @@ export const appSectionsInfo = [
 		when: "before/ no inhaler",
 		color: pink[400],
 		fmime: "application/pdf",
-		component: <UploadFileSection />,
+		component: <UploadSection />,
 	},
 	{
 		title: "Vocal Breath Audio",
@@ -128,7 +137,7 @@ export const appSectionsInfo = [
 		when: "after inhaler",
 		color: orange[400],
 		fmime: "audio/",
-		component: <UploadFileSection />,
+		component: <UploadSection />,
 	},
 	{
 		title: "Lung Breath Audio",
@@ -137,7 +146,7 @@ export const appSectionsInfo = [
 		when: "after inhaler",
 		color: orange[400],
 		fmime: "audio/",
-		component: <UploadFileSection />,
+		component: <UploadSection />,
 	},
 	{
 		title: "PFT Report",
@@ -146,6 +155,6 @@ export const appSectionsInfo = [
 		when: "after inhaler",
 		color: orange[400],
 		fmime: "application/pdf",
-		component: <UploadFileSection />,
+		component: <UploadSection />,
 	},
 ];

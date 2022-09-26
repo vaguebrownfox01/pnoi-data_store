@@ -8,8 +8,8 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import { green, yellow } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import Wait from "../components/Wait";
-import useAppSections from "../hooks/useAppSections";
+import useAppSections from "../../hooks/useAppSections";
+import Wait from "../../layouts/Wait";
 
 const Sections = React.memo(function Sections() {
 	const [sections, sectionStatus] = useAppSections();

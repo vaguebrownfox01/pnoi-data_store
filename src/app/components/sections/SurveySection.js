@@ -1,18 +1,16 @@
 import { Box, Button, Stack } from "@mui/material";
 import * as React from "react";
 
-import QuestionCard from "./QuestionCard";
+import QuestionCard from "../pieces/QuestionCard";
 
 import {
 	SUB_STORE_KEY_SECDONE,
 	SUB_STORE_KEY_SURVEY,
-} from "../appconfig/sections";
-import Wait from "../components/Wait";
-import useQuestionnairInput from "../hooks/useQuestionnairInput";
+} from "../../appconfig/sections";
+import Wait from "../../layouts/Wait";
+import useQuestionnairInput from "../../hooks/useQuestionnairInput";
 
-const QuestionnairSection = React.memo(function QuestionnairSection({
-	setSectionState,
-}) {
+const SurveySection = React.memo(function SurveySection({ setSectionState }) {
 	const [questionState, handleNextQuestion, handleSubmit] =
 		useQuestionnairInput();
 
@@ -59,4 +57,4 @@ const QuestionnairSection = React.memo(function QuestionnairSection({
 	);
 });
 
-export default QuestionnairSection;
+export default SurveySection;
