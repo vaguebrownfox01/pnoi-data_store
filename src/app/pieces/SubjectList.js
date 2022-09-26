@@ -10,19 +10,19 @@ import { SUBJECT_AGE, SUBJECT_ID, SUBJECT_NAME } from "../appconfig/metadata";
 import { initSubject, SUB_STORE_KEY_BIODATA } from "../appconfig/sections";
 
 const SubjectList = React.memo(function SubjectList({
-	allSubjects,
-	currentSubject,
-	handleSubjectSelect,
+	list,
+	currentItem,
+	onSelect,
 }) {
 	function handleSubjectSelectFromList() {
 		const info = this.subjectInfo;
 
-		handleSubjectSelect(info);
+		onSelect(info);
 	}
 
 	return (
 		<>
-			{allSubjects?.length > 0 && (
+			{list?.length > 0 && (
 				<Box
 					sx={{
 						mb: 4,
@@ -33,7 +33,7 @@ const SubjectList = React.memo(function SubjectList({
 					<List aria-label="contacts">
 						<ListItem disablePadding>
 							<ListItemButton
-								selected={currentSubject[SUBJECT_ID] === ""}
+								selected={currentItem[SUBJECT_ID] === ""}
 								onClick={handleSubjectSelectFromList.bind({
 									subjectInfo: initSubject,
 								})}
@@ -44,7 +44,7 @@ const SubjectList = React.memo(function SubjectList({
 								<ListItemText secondary={"Add New Subject"} />
 							</ListItemButton>
 						</ListItem>
-						{allSubjects.map((subInfo) => {
+						{list.map((subInfo) => {
 							const {
 								[SUBJECT_ID]: subId,
 								[SUB_STORE_KEY_BIODATA]: info,
@@ -54,7 +54,7 @@ const SubjectList = React.memo(function SubjectList({
 								<ListItem key={subId} disablePadding>
 									<ListItemButton
 										selected={
-											currentSubject[SUBJECT_ID] === subId
+											currentItem[SUBJECT_ID] === subId
 										}
 										onClick={handleSubjectSelectFromList.bind(
 											{
