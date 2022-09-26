@@ -62,16 +62,16 @@ const useQuestionnairInput = () => {
 
 		if (!key) return false;
 
-		let surveyData = {
-			[SUBJECT_ID]: key,
+		let syncData = {
 			...questionState,
+			[SUBJECT_ID]: key,
 			[SUB_STORE_KEY_SECDONE]: true,
 		};
 
 		const data = await firestoreSubjectSync(
 			SUB_STORE_KEY_SURVEY,
-			surveyData,
-			"na"
+			syncData,
+			null
 		);
 
 		data && setQuestionState(data[SUB_STORE_KEY_SURVEY]);

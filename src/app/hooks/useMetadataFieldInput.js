@@ -17,7 +17,7 @@ import {
 const useMetadataFieldInput = (currentSubject) => {
 	// States
 	const [done, setDone] = React.useState(false);
-	const [field, setField] = React.useState({});
+	const [biodata, setBiodata] = React.useState({});
 
 	// Constants
 	const fields = React.useMemo(() => {
@@ -50,35 +50,37 @@ const useMetadataFieldInput = (currentSubject) => {
 
 	const checkFields = React.useCallback(() => {
 		for (let f of fields) {
-			if (field[f.field] === "") return false;
+			if (biodata[f.field] === "") return false;
 		}
 		return true;
-	}, [field, fields]);
+	}, [biodata, fields]);
 
 	// Handlers
 	function handleFieldInput(f, v) {
 		let [_f, _v] = formatFieldValue(f, v);
-		setField((p) => ({ ...p, [_f]: _v, [SUB_STORE_KEY_SECDONE]: false }));
+		setBiodata((p) => ({ ...p, [_f]: _v, [SUB_STORE_KEY_SECDONE]: false }));
 	}
 
 	// Effects
 	// Validate Field Values on Input
 	React.useEffect(() => {
-		setDone(() => checkFields());
-	}, [field, checkFields]);
+		const _isdone = checkFields();
+
+		setDone(_isdone);
+	}, [biodata, checkFields]);
 
 	// Reset Field Values on Start
 	React.useEffect(() => {
 		if (currentSubject) {
-			setField(currentSubject[SUB_STORE_KEY_BIODATA]);
+			setBiodata(currentSubject[SUB_STORE_KEY_BIODATA]);
 		} else {
-			setField(initSubject[SUB_STORE_KEY_BIODATA]);
+			setBiodata(initSubject[SUB_STORE_KEY_BIODATA]);
 		}
-	}, [fields, currentSubject]);
+	}, [currentSubject]);
 
 	React.useDebugValue("Field Input");
 
-	return [fields, field, done, handleFieldInput];
+	return [fields, biodata, done, handleFieldInput];
 };
 
 export default useMetadataFieldInput;

@@ -4,7 +4,6 @@ import { SUBJECT_ID, SUBJECT_NAME } from "../appconfig/metadata";
 import {
 	allSections,
 	initSubject,
-	SUB_STORE_KEY_BIODATA,
 	SUB_STORE_KEY_SECDONE,
 } from "../appconfig/sections";
 import {
@@ -13,28 +12,33 @@ import {
 } from "../firebase/client/firestore";
 
 const useStoreSync = (setSectionState) => {
-	const [allSubjects, loading] = useCollectionData(subjectsCollectionQuery);
+	const [allSubjects] = useCollectionData(subjectsCollectionQuery);
 	const [currentSubject, setCurrentSubject] = React.useState(initSubject);
 
 	function handleSubjectSelect(subjectInfo) {
 		setCurrentSubject(subjectInfo);
 	}
 
-	async function handleFormInfoSync(formInfo) {
-		const syncData = { ...formInfo, [SUB_STORE_KEY_SECDONE]: true };
-		const afterSync = await firestoreSubjectSync(
-			SUB_STORE_KEY_BIODATA,
-			syncData,
-			formInfo[SUBJECT_NAME]
-		);
-		afterSync && setCurrentSubject((p) => ({ ...p, ...afterSync }));
+	async function handleStorSync(sectionKey, sectionData) {
+		const _nsectionData = {
+			...sectionData,
+			[SUBJECT_ID]: currentSubject[SUBJECT_ID],
+			[SUB_STORE_KEY_SECDONE]: true,
+		};
 
-		console.log("after sync", afterSync);
+		console.log({ syncData: _nsectionData });
+
+		const afterSync = await firestoreSubjectSync(
+			sectionKey,
+			_nsectionData,
+			sectionData[SUBJECT_NAME] || null
+		);
+
+		afterSync && setCurrentSubject((p) => ({ ...p, ...afterSync }));
 	}
 
 	React.useEffect(() => {
 		if (currentSubject) {
-			console.log({ currentSubject });
 			localStorage.setItem(SUBJECT_ID, currentSubject[SUBJECT_ID]);
 
 			allSections.forEach((sectionKey) => {
@@ -44,13 +48,7 @@ const useStoreSync = (setSectionState) => {
 		}
 	}, [currentSubject, setSectionState]);
 
-	return [
-		loading,
-		allSubjects,
-		currentSubject,
-		handleSubjectSelect,
-		handleFormInfoSync,
-	];
+	return [allSubjects, currentSubject, handleSubjectSelect, handleStorSync];
 };
 
 export default useStoreSync;

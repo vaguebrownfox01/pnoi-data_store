@@ -12,40 +12,36 @@ import { db } from "../creds/client";
 export const subjectsCollectionQuery = collection(db, SUBJECT_COLLECTION);
 export const surveyDocQuery = doc(db, SURVEY_DOC_PATH);
 
-export const firestoreSubjectSync = async (sectionKey, data, idTag) => {
+export const firestoreSubjectSync = async (sectionKey, sectionData, idTag) => {
 	let storSync = updateDoc;
 
-	const _data = { ...data };
-	let document = {
-		[SUBJECT_ID]: _data[SUBJECT_ID],
-	};
+	let syncData = { ...sectionData };
+	let syncDoc = {};
 
-	if (!document[SUBJECT_ID]) {
+	if (!syncData[SUBJECT_ID]) {
+		if (!idTag) return null;
 		storSync = setDoc;
 
 		let _id = getId(idTag);
 
-		document = {
-			...initSubject,
-			[SUBJECT_ID]: _id,
-		};
-
-		_data[SUBJECT_ID] = _id;
+		syncData[SUBJECT_ID] = _id;
+		syncDoc = { ...initSubject };
 	}
 
-	document = {
-		...document,
-		[sectionKey]: _data,
+	syncDoc = {
+		...syncDoc,
+		[SUBJECT_ID]: syncData[SUBJECT_ID],
+		[sectionKey]: syncData,
 	};
 
-	const docPath = `/${SUBJECT_COLLECTION}/${document[SUBJECT_ID]}`;
+	const docPath = `/${SUBJECT_COLLECTION}/${syncDoc[SUBJECT_ID]}`;
 
-	await storSync(doc(db, docPath), document).catch((err) => {
+	await storSync(doc(db, docPath), syncData).catch((err) => {
 		console.log("fb firestore error :: ", err);
-		document = null;
+		syncDoc = null;
 	});
 
-	return document;
+	return syncDoc;
 };
 
 const getId = (name = "unnamed") => {

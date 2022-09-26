@@ -9,7 +9,10 @@ import {
 	TextField,
 } from "@mui/material";
 import * as React from "react";
-import { SUB_STORE_KEY_BIODATA } from "../appconfig/sections";
+import {
+	SUB_STORE_KEY_BIODATA,
+	SUB_STORE_KEY_SECDONE,
+} from "../appconfig/sections";
 import useMetadataFieldInput from "../hooks/useMetadataFieldInput";
 import useStoreSync from "../hooks/useStoreSync";
 import SubjectList from "./SubjectList";
@@ -28,27 +31,22 @@ const classes = {
 const MetadataSection = React.memo(function MetadataSection({
 	setSectionState,
 }) {
-	const [
-		loading,
-		allSubjects,
-		currentSubject,
-		handleSubjectSelect,
-		handleFormInfoSync,
-	] = useStoreSync(setSectionState);
+	const [allSubjects, currentSubject, handleSubjectSelect, handleStorSync] =
+		useStoreSync(setSectionState);
 
-	const [fields, field, done, handleFieldInput] =
+	const [fields, biodata, done, handleFieldInput] =
 		useMetadataFieldInput(currentSubject);
 
 	function handleFormInputData({ target }) {
 		const { value: _value } = target;
 		const _field = this.field;
 		handleFieldInput(_field, _value);
-		setSectionState(SUB_STORE_KEY_BIODATA, false);
+
+		setSectionState(SUB_STORE_KEY_BIODATA, biodata[SUB_STORE_KEY_SECDONE]);
 	}
 
 	async function handleFormSubmitData() {
-		await handleFormInfoSync(field);
-		setSectionState(SUB_STORE_KEY_BIODATA, true);
+		await handleStorSync(SUB_STORE_KEY_BIODATA, biodata);
 	}
 
 	return (
@@ -56,7 +54,6 @@ const MetadataSection = React.memo(function MetadataSection({
 			<Stack>
 				<SubjectList
 					{...{
-						loading,
 						allSubjects,
 						currentSubject,
 						handleSubjectSelect,
@@ -72,7 +69,7 @@ const MetadataSection = React.memo(function MetadataSection({
 							type={f.type}
 							size="small"
 							variant="standard"
-							value={field[f.field] || ""}
+							value={biodata[f.field] || ""}
 							onChange={handleFormInputData.bind({
 								field: f.field,
 							})}
@@ -91,7 +88,7 @@ const MetadataSection = React.memo(function MetadataSection({
 								sx={classes.selectMenu}
 								labelId={`${f.id}-label`}
 								id={`${f.id}-select-helper`}
-								value={field[f.field] || ""}
+								value={biodata[f.field] || ""}
 								label={`${f.label}`}
 								size="small"
 								variant="standard"
