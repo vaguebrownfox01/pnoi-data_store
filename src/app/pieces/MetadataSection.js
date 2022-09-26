@@ -29,7 +29,6 @@ const MetadataSection = React.memo(function MetadataSection({
 	setSectionState,
 }) {
 	const [
-		loading,
 		allSubjects,
 		currentSubject,
 		handleSubjectSelect,
@@ -55,13 +54,12 @@ const MetadataSection = React.memo(function MetadataSection({
 		<Box sx={classes.fieldRoot}>
 			<Stack>
 				<SubjectList
-					{...{
-						loading,
-						allSubjects,
-						currentSubject,
-						handleSubjectSelect,
-					}}
+					list={allSubjects}
+					currentItem={currentSubject}
+					onSelect={handleSubjectSelect}
 				/>
+			</Stack>
+			<Stack>
 				{fields.map((f, i) =>
 					f.type !== "menu" ? (
 						<TextField
@@ -70,12 +68,12 @@ const MetadataSection = React.memo(function MetadataSection({
 							id={f.id}
 							label={f.label}
 							type={f.type}
-							size="small"
-							variant="standard"
 							value={field[f.field] || ""}
 							onChange={handleFormInputData.bind({
 								field: f.field,
 							})}
+							size="small"
+							variant="standard"
 							autoComplete="off"
 						/>
 					) : (
@@ -93,11 +91,11 @@ const MetadataSection = React.memo(function MetadataSection({
 								id={`${f.id}-select-helper`}
 								value={field[f.field] || ""}
 								label={`${f.label}`}
-								size="small"
-								variant="standard"
 								onChange={handleFormInputData.bind({
 									field: f.field,
 								})}
+								size="small"
+								variant="standard"
 							>
 								{f.menuItems.map((g, i) => (
 									<MenuItem
