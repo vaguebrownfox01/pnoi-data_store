@@ -9,6 +9,7 @@ import {
 	SUBJECT_NAME,
 	SUBJECT_RUMDETS,
 	SUBJECT_RUMTYPE,
+	SUBJECT_TYPE,
 	SUBJECT_WEIGHT,
 } from "./metadata";
 
@@ -52,6 +53,7 @@ export const initSubject = {
 		[SUBJECT_HEIGHT]: "",
 		[SUBJECT_WEIGHT]: "",
 		[SUBJECT_GENDER]: "",
+		[SUBJECT_TYPE]: "",
 		[SUBJECT_RUMTYPE]: "",
 		[SUBJECT_RUMDETS]: "",
 		[SUB_STORE_KEY_SECDONE]: false,

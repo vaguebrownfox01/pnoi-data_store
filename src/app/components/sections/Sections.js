@@ -20,8 +20,8 @@ const Sections = React.memo(function Sections() {
 				<Accordion key={`panel1a-header-${i}-key`} square={false}>
 					<AccordionSummary
 						expandIcon={<ExpandMoreIcon />}
-						aria-controls="panel1a-content"
-						id={`panel1a-header-${i}`}
+						aria-controls={`panel1a-content-${i}-key`}
+						id={`panel1a-content-${i}-id`}
 					>
 						{sectionStatus && (
 							<AccordionActions>

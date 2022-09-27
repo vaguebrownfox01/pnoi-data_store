@@ -6,79 +6,67 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import * as React from "react";
-import {
-	SUBJECT_AGE,
-	SUBJECT_ID,
-	SUBJECT_NAME,
-} from "../../appconfig/metadata";
-import { initSubject, SUB_STORE_KEY_BIODATA } from "../../appconfig/sections";
+import useSelect from "../../hooks/useSelect";
 
 const SubjectList = React.memo(function SubjectList({
-	list,
+	list: listItems,
 	currentItem,
 	onSelect,
 }) {
-	function handleSubjectSelectFromList() {
-		const info = this.subjectInfo;
+	const [list, selected, handleSelect] = useSelect(
+		listItems,
+		currentItem,
+		onSelect
+	);
 
-		onSelect(info);
+	function handleSubjectSelectFromList() {
+		handleSelect(this.itemIndex);
 	}
 
 	return (
 		<>
-			{list?.length > 0 && (
-				<Box
-					sx={{
-						mb: 4,
-						maxHeight: 256,
-						overflow: "auto",
-					}}
-				>
-					<List aria-label="contacts">
-						<ListItem disablePadding>
-							<ListItemButton
-								selected={currentItem[SUBJECT_ID] === ""}
-								onClick={handleSubjectSelectFromList.bind({
-									subjectInfo: initSubject,
-								})}
-							>
-								<ListItemIcon>
-									<AddCircleIcon color="secondary" />
-								</ListItemIcon>
-								<ListItemText secondary={"Add New Subject"} />
-							</ListItemButton>
-						</ListItem>
-						{list.map((subInfo) => {
-							const {
-								[SUBJECT_ID]: subId,
-								[SUB_STORE_KEY_BIODATA]: info,
-							} = subInfo;
-
-							return (
-								<ListItem key={subId} disablePadding>
-									<ListItemButton
-										selected={
-											currentItem[SUBJECT_ID] === subId
-										}
-										onClick={handleSubjectSelectFromList.bind(
-											{
-												subjectInfo: subInfo,
-											}
-										)}
-									>
-										<ListItemIcon>
-											<SubjectIcon />
-										</ListItemIcon>
-										<ListItemText
-											primary={`${info[SUBJECT_NAME]}, ${info[SUBJECT_AGE]}y`}
-										/>
-									</ListItemButton>
-								</ListItem>
-							);
-						})}
-					</List>
-				</Box>
-			)}
+			<Box
+				sx={{
+					mb: 4,
+					maxHeight: 200,
+					overflow: "auto",
+				}}
+			>
+				<List aria-label="contacts">
+					<ListItem disablePadding>
+						<ListItemButton
+							selected={selected.id === ""}
+							onClick={handleSubjectSelectFromList.bind({
+								itemIndex: -1,
+							})}
+						>
+							<ListItemIcon>
+								<AddCircleIcon color="secondary" />
+							</ListItemIcon>
+							<ListItemText secondary={"Add New Subject"} />
+						</ListItemButton>
+					</ListItem>
+					{list.map((info) => {
+						return (
+							<ListItem key={info.id} disablePadding>
+								<ListItemButton
+									selected={selected.id === info.id}
+									onClick={handleSubjectSelectFromList.bind({
+										itemIndex: info.index,
+									})}
+								>
+									<ListItemIcon>
+										<SubjectIcon color="primary" />
+									</ListItemIcon>
+									<ListItemText
+										primary={`${info.name}, ${info.age}y`}
+									/>
+								</ListItemButton>
+							</ListItem>
+						);
+					})}
+				</List>
+			</Box>
 		</>
 	);
 });

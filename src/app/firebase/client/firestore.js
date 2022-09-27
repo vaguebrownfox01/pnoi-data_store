@@ -36,7 +36,7 @@ export const firestoreSubjectSync = async (sectionKey, sectionData, idTag) => {
 
 	const docPath = `/${SUBJECT_COLLECTION}/${syncDoc[SUBJECT_ID]}`;
 
-	await storSync(doc(db, docPath), syncData).catch((err) => {
+	await storSync(doc(db, docPath), syncDoc).catch((err) => {
 		console.log("fb firestore error :: ", err);
 		syncDoc = null;
 	});

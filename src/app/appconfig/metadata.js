@@ -4,6 +4,7 @@ export const SUBJECT_AGE = "subjectAge";
 export const SUBJECT_HEIGHT = "subjectHeight";
 export const SUBJECT_WEIGHT = "subjectWeight";
 export const SUBJECT_GENDER = "subjectGender";
+export const SUBJECT_TYPE = "subjectType";
 export const SUBJECT_RUMTYPE = "subjectRemunerationType";
 export const SUBJECT_RUMDETS = "subjectRemunerationDetails";
 
@@ -44,6 +45,18 @@ export const metaDataInfo = [
 			{ label: "Male", value: "Male" },
 			{ label: "Female", value: "Female" },
 			{ label: "Other", value: "Other" },
+		],
+	},
+	{
+		id: "SubjectType",
+		label: "Subject Type",
+		type: "menu",
+		field: SUBJECT_TYPE,
+		menuItems: [
+			{ label: "Select", value: "" },
+			{ label: "Control", value: "Control" },
+			{ label: "Patient", value: "Patient" },
+			{ label: "Unknown", value: "Unknown" },
 		],
 	},
 	{

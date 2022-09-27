@@ -14,7 +14,7 @@ import {
 	SUB_STORE_KEY_SECDONE,
 } from "../appconfig/sections";
 
-const useMetadataFieldInput = (currentSubject) => {
+const useBiodataInput = (currentSubject, setSectionState, storSync) => {
 	// States
 	const [done, setDone] = React.useState(false);
 	const [biodata, setBiodata] = React.useState({});
@@ -59,13 +59,17 @@ const useMetadataFieldInput = (currentSubject) => {
 	function handleFieldInput(f, v) {
 		let [_f, _v] = formatFieldValue(f, v);
 		setBiodata((p) => ({ ...p, [_f]: _v, [SUB_STORE_KEY_SECDONE]: false }));
+		setSectionState(SUB_STORE_KEY_BIODATA, false);
+	}
+
+	function handleSubmit() {
+		storSync(SUB_STORE_KEY_BIODATA, biodata);
 	}
 
 	// Effects
 	// Validate Field Values on Input
 	React.useEffect(() => {
 		const _isdone = checkFields();
-
 		setDone(_isdone);
 	}, [biodata, checkFields]);
 
@@ -80,7 +84,7 @@ const useMetadataFieldInput = (currentSubject) => {
 
 	React.useDebugValue("Field Input");
 
-	return [fields, biodata, done, handleFieldInput];
+	return [done, fields, biodata, handleFieldInput, handleSubmit];
 };
 
-export default useMetadataFieldInput;
+export default useBiodataInput;

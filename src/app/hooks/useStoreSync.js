@@ -2,7 +2,7 @@ import React from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { SUBJECT_ID, SUBJECT_NAME } from "../appconfig/metadata";
 import {
-	allSections,
+	appSectionsInfo,
 	initSubject,
 	SUB_STORE_KEY_SECDONE,
 } from "../appconfig/sections";
@@ -26,22 +26,20 @@ const useStoreSync = (setSectionState) => {
 			[SUB_STORE_KEY_SECDONE]: true,
 		};
 
-		console.log({ syncData: _nsectionData });
-
 		const afterSync = await firestoreSubjectSync(
 			sectionKey,
 			_nsectionData,
 			sectionData[SUBJECT_NAME] || null
 		);
 
-		afterSync && setCurrentSubject((p) => ({ ...p, ...afterSync }));
+		if (afterSync) setCurrentSubject((p) => ({ ...p, ...afterSync }));
 	}
 
 	React.useEffect(() => {
 		if (currentSubject) {
 			localStorage.setItem(SUBJECT_ID, currentSubject[SUBJECT_ID]);
 
-			allSections.forEach((sectionKey) => {
+			appSectionsInfo.forEach(({ sectionKey }) => {
 				const state = currentSubject[sectionKey][SUB_STORE_KEY_SECDONE];
 				setSectionState(sectionKey, state);
 			});

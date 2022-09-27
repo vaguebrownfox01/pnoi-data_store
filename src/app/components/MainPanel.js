@@ -1,6 +1,5 @@
 import LockIcon from "@mui/icons-material/Lock";
 import { Fab, Stack } from "@mui/material";
-import { orange } from "@mui/material/colors";
 import * as React from "react";
 import useAuth from "../hooks/useAuth";
 const AuthModal = React.lazy(() => import("./pieces/AuthModal"));
@@ -11,18 +10,14 @@ const MainPanel = React.memo(function MainPanel() {
 	return (
 		<>
 			{!user ? (
-				<AuthModal open={!!user} handleAuth={handleAuth} />
+				<AuthModal open={!user} handleAuth={handleAuth} />
 			) : (
 				<>
 					<Sections />
-					<Stack
-						sx={{ m: 2, color: orange[800] }}
-						direction="row-reverse"
-					>
+					<Stack sx={{ m: 2, mr: 0 }} direction="row-reverse">
 						<Fab
 							aria-label="logout"
 							variant="extended"
-							color="inherit"
 							onClick={handleLogout}
 						>
 							<LockIcon sx={{ mr: 1 }} />

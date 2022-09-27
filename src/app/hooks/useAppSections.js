@@ -35,7 +35,7 @@ const useAppSections = () => {
 			{}
 		);
 		setSectionStatus(sectionStates);
-	}, [sections]);
+	}, []);
 
 	return [sections, sectionStatus];
 };
