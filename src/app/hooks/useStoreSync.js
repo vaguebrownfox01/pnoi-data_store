@@ -1,6 +1,10 @@
 import React from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { SUBJECT_ID, SUBJECT_NAME } from "../appconfig/metadata";
+import {
+	setSubjectLocalValues,
+	SUBJECT_ID,
+	SUBJECT_NAME,
+} from "../appconfig/metadata";
 import {
 	appSectionsInfo,
 	initSubject,
@@ -37,7 +41,7 @@ const useStoreSync = (setSectionState) => {
 
 	React.useEffect(() => {
 		if (currentSubject) {
-			localStorage.setItem(SUBJECT_ID, currentSubject[SUBJECT_ID]);
+			setSubjectLocalValues(currentSubject);
 
 			appSectionsInfo.forEach(({ sectionKey }) => {
 				const state = currentSubject[sectionKey][SUB_STORE_KEY_SECDONE];

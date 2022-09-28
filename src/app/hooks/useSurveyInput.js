@@ -1,6 +1,10 @@
 import React from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
-import { SUBJECT_ID } from "../appconfig/metadata";
+import {
+	getSubjectLocalValues,
+	SUBJECT_ID,
+	SUBJECT_NAME,
+} from "../appconfig/metadata";
 import {
 	SUB_STORE_KEY_SECDONE,
 	SUB_STORE_KEY_SURVEY,
@@ -10,11 +14,9 @@ import {
 	surveyDocQuery,
 } from "../firebase/client/firestore";
 
-const useQuestionnairInput = () => {
-	// States
+const useSurveyInput = (setSectionState) => {
 	const [questionState, setQuestionState] = React.useState({});
 
-	// Constants
 	const [questions] = useDocumentData(surveyDocQuery);
 
 	// Helpers
@@ -58,25 +60,26 @@ const useQuestionnairInput = () => {
 
 	async function handleSubmit() {
 		// Current Selected Subject Key
-		const key = localStorage.getItem(SUBJECT_ID);
+		const info = getSubjectLocalValues();
 
-		if (!key) return false;
+		if (!info[SUBJECT_ID]) return false;
 
-		let syncData = {
+		let _nsectionData = {
 			...questionState,
-			[SUBJECT_ID]: key,
+			[SUBJECT_ID]: info[SUBJECT_ID],
+			[SUBJECT_NAME]: info[SUBJECT_NAME],
 			[SUB_STORE_KEY_SECDONE]: true,
 		};
 
-		const data = await firestoreSubjectSync(
+		const afterSync = await firestoreSubjectSync(
 			SUB_STORE_KEY_SURVEY,
-			syncData,
+			_nsectionData,
 			null
 		);
 
-		data && setQuestionState(data[SUB_STORE_KEY_SURVEY]);
+		if (afterSync) setQuestionState((p) => ({ ...p, ...afterSync }));
 
-		return !!data;
+		setSectionState(SUB_STORE_KEY_SURVEY, !!afterSync);
 	}
 
 	const handleResetQuestion = React.useCallback(() => {
@@ -90,6 +93,10 @@ const useQuestionnairInput = () => {
 		}
 	}, [questions]);
 
+	const handleReset = () => {
+		handleResetQuestion();
+	};
+
 	React.useDebugValue("Questionnair Input");
 
 	// Reset Question State
@@ -97,7 +104,7 @@ const useQuestionnairInput = () => {
 		handleResetQuestion();
 	}, [handleResetQuestion]);
 
-	return [questionState, handleNextQuestion, handleSubmit];
+	return [questionState, handleNextQuestion, handleSubmit, handleReset];
 };
 
-export default useQuestionnairInput;
+export default useSurveyInput;

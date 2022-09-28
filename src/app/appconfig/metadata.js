@@ -1,3 +1,5 @@
+import { SUB_STORE_KEY_BIODATA } from "./sections";
+
 export const SUBJECT_ID = "firebaseId";
 export const SUBJECT_NAME = "subjectName";
 export const SUBJECT_AGE = "subjectAge";
@@ -79,3 +81,16 @@ export const metaDataInfo = [
 		field: SUBJECT_RUMDETS,
 	},
 ];
+
+export const setSubjectLocalValues = (currentSubject) => {
+	const { [SUB_STORE_KEY_BIODATA]: info } = currentSubject;
+	localStorage.setItem(SUBJECT_ID, info[SUBJECT_ID]);
+	localStorage.setItem(SUBJECT_NAME, info[SUBJECT_NAME]);
+};
+
+export const getSubjectLocalValues = () => {
+	return {
+		[SUBJECT_ID]: localStorage.getItem(SUBJECT_ID),
+		[SUBJECT_NAME]: localStorage.getItem(SUBJECT_NAME),
+	};
+};

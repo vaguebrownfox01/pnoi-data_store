@@ -1,27 +1,27 @@
-import { Box, Button, Stack } from "@mui/material";
+import { Box, Button, IconButton, Stack } from "@mui/material";
 import * as React from "react";
 
 import QuestionCard from "../pieces/QuestionCard";
 
-import {
-	SUB_STORE_KEY_SECDONE,
-	SUB_STORE_KEY_SURVEY,
-} from "../../appconfig/sections";
+import RestartIcon from "@mui/icons-material/RestartAlt";
+import { orange } from "@mui/material/colors";
+import { SUB_STORE_KEY_SECDONE } from "../../appconfig/sections";
+import useSurveyInput from "../../hooks/useSurveyInput";
 import Wait from "../../layouts/Wait";
-import useQuestionnairInput from "../../hooks/useQuestionnairInput";
 
 const SurveySection = React.memo(function SurveySection({ setSectionState }) {
-	const [questionState, handleNextQuestion, handleSubmit] =
-		useQuestionnairInput();
+	const [questionState, handleNextQuestion, handleSubmit, handleReset] =
+		useSurveyInput(setSectionState);
 
+	const [isSync, setIsSync] = React.useState(false);
 	const handleQuestionSubmit = (answer, next) => {
 		handleNextQuestion(questionState.currentQuestion, answer, next);
 	};
 
 	const handleQuestionSubmitData = async () => {
-		const done = await handleSubmit();
-
-		setSectionState(SUB_STORE_KEY_SURVEY, done);
+		setIsSync(true);
+		await handleSubmit();
+		setIsSync(false);
 	};
 
 	return (
@@ -40,7 +40,18 @@ const SurveySection = React.memo(function SurveySection({ setSectionState }) {
 							done: questionState[SUB_STORE_KEY_SECDONE],
 						}}
 					/>
-					<Stack sx={{ mt: 4 }} justifyContent="center">
+
+					<Stack sx={{ mt: 2 }} justifyContent="center">
+						<Stack direction="row" justifyContent="center">
+							<IconButton
+								sx={{ mb: 2 }}
+								variant="contained"
+								onClick={handleReset}
+							>
+								<RestartIcon sx={{ color: orange[400] }} />
+							</IconButton>
+						</Stack>
+						{isSync && <Wait size="small" />}
 						<Button
 							variant="contained"
 							onClick={handleQuestionSubmitData}
