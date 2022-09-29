@@ -1,8 +1,9 @@
 import React from "react";
-import { SUBJECT_ID } from "../appconfig/metadata";
+import { getSubjectLocalValues, SUBJECT_ID } from "../appconfig/metadata";
 import { SUB_STORE_KEY_SECDONE } from "../appconfig/sections";
 import { firestoreSubjectSync } from "../firebase/client/firestore";
 import { firebaseFileUpload } from "../firebase/client/storage";
+import { v4 as uuid } from "uuid";
 
 const useFileUpload = (props) => {
 	const [isUploading, setIsUploading] = React.useState(false);
@@ -15,9 +16,18 @@ const useFileUpload = (props) => {
 	// 2. subject-kind_ : Patient (P)/ Control (C)/ Unknown (XX)
 	// 4. data-kind_ : Vocal Lung Audio (VBA), Lung Breath Audio (LBA), PFT Report (PFT), Miscl (XXX)
 	// 5. file-type_ : WAV/ PDF
-	// function createFileName(sid, skind, dkind, ftype, fhash) {
-	// 	return `${sid}_${skind}_${dkind}_${fhash}_.${ftype}`;
-	// }
+	const createFileName = React.useCallback(
+		(ext) => {
+			// Current Selected Subject Key
+			const { [SUBJECT_ID]: sid } = getSubjectLocalValues();
+			const { ftag } = props;
+			const fhash = uuid().slice(0, 4);
+			const ftype = ext;
+
+			return [sid, `${sid}_${ftag}_${fhash}_.${ftype}`];
+		},
+		[props]
+	);
 
 	// Handlers
 	function handleFileDrop(fileObj) {
@@ -32,20 +42,24 @@ const useFileUpload = (props) => {
 
 	async function handleFileUpload() {
 		// Current Selected Subject Key
-		const key = localStorage.getItem(SUBJECT_ID);
-		if (!key) return false;
+		const { [SUBJECT_ID]: subjectId } = getSubjectLocalValues();
+		if (!subjectId) return false;
 
 		if (inputFile) {
 			setIsUploading(true);
 
 			const { sectionKey, setSectionState } = props;
 			let uploadData = {
-				[SUBJECT_ID]: key,
+				[SUBJECT_ID]: subjectId,
 				fileName: newFileName,
 				[SUB_STORE_KEY_SECDONE]: true,
 			};
 
-			const _done = await firebaseFileUpload(inputFile, newFileName);
+			const _done = await firebaseFileUpload(
+				subjectId,
+				inputFile,
+				newFileName
+			);
 			if (_done) {
 				const _data = await firestoreSubjectSync(
 					sectionKey,
@@ -53,7 +67,6 @@ const useFileUpload = (props) => {
 					"na"
 				);
 				setSectionState(sectionKey, !!_data);
-				console.log({ _done, _data });
 			}
 
 			setIsUploading(false);
@@ -68,9 +81,11 @@ const useFileUpload = (props) => {
 	// Set filename on Drop
 	React.useEffect(() => {
 		if (inputFile) {
-			setNewFileName(inputFile.name);
+			const ext = inputFile.name.split(".").at(-1);
+			const [, fname] = createFileName(ext);
+			setNewFileName(fname);
 		}
-	}, [inputFile]);
+	}, [inputFile, createFileName]);
 
 	// File Upload Ready Check
 	React.useEffect(() => {

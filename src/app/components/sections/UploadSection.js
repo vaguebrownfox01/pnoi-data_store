@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import * as React from "react";
 import DropZone from "../../layouts/DropZone";
 import Wait from "../../layouts/Wait";
-import useFileUpload from "../../hooks/useFileUpload";
+import useUpload from "../../hooks/useUpload";
 
 const UploadSection = React.memo(function UploadSection(props) {
 	const [
@@ -15,7 +15,7 @@ const UploadSection = React.memo(function UploadSection(props) {
 		handleFileDrop,
 		handleFileNameInput,
 		handleFileUpload,
-	] = useFileUpload(props);
+	] = useUpload(props);
 
 	const handleSubmit = () => {
 		handleFileUpload();
