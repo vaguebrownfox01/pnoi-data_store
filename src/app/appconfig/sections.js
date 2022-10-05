@@ -108,7 +108,7 @@ export const appSectionsInfo = [
 	{
 		title: "Vocal Breath Audio",
 		sectionKey: SUB_STORE_KEY_VBAbf,
-		ftag: "VBA-before",
+		ftag: "VBA_before",
 		when: "before/ no inhaler",
 		color: pink[400],
 		fmime: "audio/",
@@ -117,7 +117,7 @@ export const appSectionsInfo = [
 	{
 		title: "Lung Breath Audio",
 		sectionKey: SUB_STORE_KEY_LBAbf,
-		ftag: "LBA-before",
+		ftag: "LBA_before",
 		when: "before/ no inhaler",
 		color: pink[400],
 		fmime: "audio/",
@@ -126,7 +126,7 @@ export const appSectionsInfo = [
 	{
 		title: "PFT Report",
 		sectionKey: SUB_STORE_KEY_PFTbf,
-		ftag: "PFT-before",
+		ftag: "PFT_before",
 		when: "before/ no inhaler",
 		color: pink[400],
 		fmime: "application/pdf",
@@ -135,7 +135,7 @@ export const appSectionsInfo = [
 	{
 		title: "Vocal Breath Audio",
 		sectionKey: SUB_STORE_KEY_VBAaf,
-		ftag: "VBA-after",
+		ftag: "VBA_after",
 		when: "after inhaler",
 		color: orange[400],
 		fmime: "audio/",
@@ -144,7 +144,7 @@ export const appSectionsInfo = [
 	{
 		title: "Lung Breath Audio",
 		sectionKey: SUB_STORE_KEY_LBAaf,
-		ftag: "LBA-after",
+		ftag: "LBA_after",
 		when: "after inhaler",
 		color: orange[400],
 		fmime: "audio/",
@@ -153,7 +153,7 @@ export const appSectionsInfo = [
 	{
 		title: "PFT Report",
 		sectionKey: SUB_STORE_KEY_PFTaf,
-		ftag: "PFT-after",
+		ftag: "PFT_after",
 		when: "after inhaler",
 		color: orange[400],
 		fmime: "application/pdf",
