@@ -4,6 +4,8 @@ import { SUB_STORE_KEY_SECDONE } from "../appconfig/sections";
 import { firestoreSubjectSync } from "../firebase/client/firestore";
 import { firebaseFileUpload } from "../firebase/client/storage";
 import { v4 as uuid } from "uuid";
+import { APP_VERSION, PROJECT_TAG } from "../appconfig/info";
+import { FILENAME_SEP } from "../firebase/creds/.setup";
 
 const useFileUpload = (props) => {
 	const [isUploading, setIsUploading] = React.useState(false);
@@ -19,12 +21,15 @@ const useFileUpload = (props) => {
 	const createFileName = React.useCallback(
 		(ext) => {
 			// Current Selected Subject Key
+			const src = `${PROJECT_TAG}_${APP_VERSION}`;
 			const { [SUBJECT_ID]: sid } = getSubjectLocalValues();
 			const { ftag } = props;
 			const fhash = uuid().slice(0, 4);
 			const ftype = ext;
 
-			return [sid, `${sid}_${ftag}_${fhash}_.${ftype}`];
+			let nomen = [src, sid, ftag, fhash].join(FILENAME_SEP);
+
+			return [sid, `${nomen}.${ftype}`];
 		},
 		[props]
 	);

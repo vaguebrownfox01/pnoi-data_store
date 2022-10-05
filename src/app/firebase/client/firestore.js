@@ -47,5 +47,5 @@ export const firestoreSubjectSync = async (sectionKey, sectionData, idTag) => {
 const getId = (name = "unnamed") => {
 	let id = name.toLowerCase().replace(/[^a-zA-Z]/g, "");
 	console.log("creating new ID", id);
-	return `${id}-${uuid().slice(0, SUBJECT_UUID_LEN)}`;
+	return `${id}_${uuid().slice(0, SUBJECT_UUID_LEN)}`;
 };
