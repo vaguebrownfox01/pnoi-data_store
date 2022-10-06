@@ -27,7 +27,7 @@ const useFileUpload = (props) => {
 			const fhash = uuid().slice(0, 4);
 			const ftype = ext;
 
-			let nomen = [src, sid, ftag, fhash].join(FILENAME_SEP);
+			let nomen = [src, sid, ftag, fhash, "comnt"].join(FILENAME_SEP);
 
 			return [sid, `${nomen}.${ftype}`];
 		},
