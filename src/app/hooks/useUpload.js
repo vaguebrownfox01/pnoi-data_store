@@ -54,7 +54,7 @@ const useFileUpload = (props) => {
 			setIsUploading(true);
 
 			const { sectionKey, setSectionState } = props;
-			const timestamp = `${Date.now()}`;
+			const timestamp = `file_${Date.now()}`;
 			let uploadData = {
 				[SUBJECT_ID]: subjectId,
 				[timestamp]: newFileName,
