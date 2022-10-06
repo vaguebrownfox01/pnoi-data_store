@@ -19,7 +19,6 @@ const UploadSection = React.memo(function UploadSection(props) {
 
 	const handleSubmit = () => {
 		handleFileUpload();
-		console.log(props);
 	};
 
 	return (
