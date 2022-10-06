@@ -51,7 +51,7 @@ const SurveySection = React.memo(function SurveySection({ setSectionState }) {
 								<RestartIcon sx={{ color: orange[400] }} />
 							</IconButton>
 						</Stack>
-						{isSync && <Wait size="small" />}
+						{isSync && <Wait />}
 						<Button
 							variant="contained"
 							onClick={handleQuestionSubmitData}
