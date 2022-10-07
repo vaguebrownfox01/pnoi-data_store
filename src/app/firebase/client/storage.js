@@ -1,5 +1,5 @@
 import { st } from "../creds/client";
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { AUDIO_DATA_FOLDER } from "../creds/.setup";
 
 export const firebaseFileUpload = async (subjectId, fileObj, filename) => {
@@ -11,12 +11,16 @@ export const firebaseFileUpload = async (subjectId, fileObj, filename) => {
 		contentType: fileObj.type,
 	};
 
-	const res = await uploadBytes(storageRef, fileObj, metadata).catch((e) => {
-		console.log("firebase upload wavblob failed!", e);
+	let res = await uploadBytes(storageRef, fileObj, metadata).catch((e) => {
+		console.log("firebase upload failed!", e);
 		return null;
 	});
 
-	console.log("upload result: ", res?.metadata || "error");
+	if (res) {
+		res = await getDownloadURL(storageRef, path);
+	}
 
-	return !!res;
+	console.log("upload result: isDone? ", !!res || "error");
+
+	return res;
 };
