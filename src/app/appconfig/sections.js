@@ -1,5 +1,13 @@
+import {
+	cyan,
+	indigo,
+	lime,
+	orange,
+	pink,
+	purple,
+	teal,
+} from "@mui/material/colors";
 import * as React from "react";
-import { orange, pink } from "@mui/material/colors";
 
 import {
 	SUBJECT_AGE,
@@ -25,22 +33,39 @@ const UploadSection = React.lazy(() =>
 
 export const SUB_STORE_KEY_BIODATA = "subjectBiodata";
 export const SUB_STORE_KEY_SURVEY = "subjectSurvey";
+
 export const SUB_STORE_KEY_VBAbf = "subjectVBAbf";
-export const SUB_STORE_KEY_LBAbf = "subjectLBAbf";
+export const SUB_STORE_KEY_LBAbf_LU = "subjectLBAbf_LU";
+export const SUB_STORE_KEY_LBAbf_RU = "subjectLBAbf_RU";
+export const SUB_STORE_KEY_LBAbf_LL = "subjectLBAbf_LL";
+export const SUB_STORE_KEY_LBAbf_RL = "subjectLBAbf_RL";
 export const SUB_STORE_KEY_PFTbf = "subjectPFTbf";
+
 export const SUB_STORE_KEY_VBAaf = "subjectVBAaf";
-export const SUB_STORE_KEY_LBAaf = "subjectLBAaf";
+export const SUB_STORE_KEY_LBAaf_LU = "subjectLBAaf_LU";
+export const SUB_STORE_KEY_LBAaf_RU = "subjectLBAaf_RU";
+export const SUB_STORE_KEY_LBAaf_LL = "subjectLBAaf_LL";
+export const SUB_STORE_KEY_LBAaf_RL = "subjectLBAaf_RL";
 export const SUB_STORE_KEY_PFTaf = "subjectPFTaf";
+
 export const SUB_STORE_KEY_SECDONE = "subjectSectionDone";
 
 export const allSections = [
 	SUB_STORE_KEY_BIODATA,
 	SUB_STORE_KEY_SURVEY,
+
 	SUB_STORE_KEY_VBAbf,
-	SUB_STORE_KEY_LBAbf,
+	SUB_STORE_KEY_LBAbf_LU,
+	SUB_STORE_KEY_LBAbf_RU,
+	SUB_STORE_KEY_LBAbf_LL,
+	SUB_STORE_KEY_LBAbf_RL,
 	SUB_STORE_KEY_PFTbf,
+
 	SUB_STORE_KEY_VBAaf,
-	SUB_STORE_KEY_LBAaf,
+	SUB_STORE_KEY_LBAaf_LU,
+	SUB_STORE_KEY_LBAaf_RU,
+	SUB_STORE_KEY_LBAaf_LL,
+	SUB_STORE_KEY_LBAaf_RL,
 	SUB_STORE_KEY_PFTaf,
 ];
 
@@ -66,7 +91,19 @@ export const initSubject = {
 		[SUBJECT_ID]: "",
 		[SUB_STORE_KEY_SECDONE]: false,
 	},
-	[SUB_STORE_KEY_LBAbf]: {
+	[SUB_STORE_KEY_LBAbf_LU]: {
+		[SUBJECT_ID]: "",
+		[SUB_STORE_KEY_SECDONE]: false,
+	},
+	[SUB_STORE_KEY_LBAbf_RU]: {
+		[SUBJECT_ID]: "",
+		[SUB_STORE_KEY_SECDONE]: false,
+	},
+	[SUB_STORE_KEY_LBAbf_LL]: {
+		[SUBJECT_ID]: "",
+		[SUB_STORE_KEY_SECDONE]: false,
+	},
+	[SUB_STORE_KEY_LBAbf_RL]: {
 		[SUBJECT_ID]: "",
 		[SUB_STORE_KEY_SECDONE]: false,
 	},
@@ -78,7 +115,19 @@ export const initSubject = {
 		[SUBJECT_ID]: "",
 		[SUB_STORE_KEY_SECDONE]: false,
 	},
-	[SUB_STORE_KEY_LBAaf]: {
+	[SUB_STORE_KEY_LBAaf_LU]: {
+		[SUBJECT_ID]: "",
+		[SUB_STORE_KEY_SECDONE]: false,
+	},
+	[SUB_STORE_KEY_LBAaf_RU]: {
+		[SUBJECT_ID]: "",
+		[SUB_STORE_KEY_SECDONE]: false,
+	},
+	[SUB_STORE_KEY_LBAaf_LL]: {
+		[SUBJECT_ID]: "",
+		[SUB_STORE_KEY_SECDONE]: false,
+	},
+	[SUB_STORE_KEY_LBAaf_RL]: {
 		[SUBJECT_ID]: "",
 		[SUB_STORE_KEY_SECDONE]: false,
 	},
@@ -95,6 +144,7 @@ export const appSectionsInfo = [
 		ftag: "META",
 		when: "before/ no inhaler",
 		fmime: "na",
+		color: cyan[400],
 		component: <BiodataSection />,
 	},
 	{
@@ -103,32 +153,70 @@ export const appSectionsInfo = [
 		ftag: "SURVEY",
 		when: "before/ no inhaler",
 		fmime: "na",
+		color: cyan[600],
 		component: <SurveySection />,
-	},
-	{
-		title: "Vocal Breath Audio",
-		sectionKey: SUB_STORE_KEY_VBAbf,
-		ftag: "VBA_before",
-		when: "before/ no inhaler",
-		color: pink[400],
-		fmime: "audio/",
-		component: <UploadSection />,
-	},
-	{
-		title: "Lung Breath Audio",
-		sectionKey: SUB_STORE_KEY_LBAbf,
-		ftag: "LBA_before",
-		when: "before/ no inhaler",
-		color: pink[400],
-		fmime: "audio/",
-		component: <UploadSection />,
 	},
 	{
 		title: "PFT Report",
 		sectionKey: SUB_STORE_KEY_PFTbf,
 		ftag: "PFT_before",
 		when: "before/ no inhaler",
-		color: pink[400],
+		color: teal[400],
+		fmime: "application/pdf",
+		component: <UploadSection />,
+	},
+	{
+		title: "Vocal Breath Audio",
+		sectionKey: SUB_STORE_KEY_VBAbf,
+		ftag: "VBA_before",
+		when: "before/ no inhaler",
+		color: lime[400],
+		fmime: "audio/",
+		component: <UploadSection />,
+	},
+
+	{
+		title: "Lung Breath Audio LU",
+		sectionKey: SUB_STORE_KEY_LBAbf_LU,
+		ftag: "LBA_before_LU",
+		when: "before/ no inhaler",
+		color: purple[200],
+		fmime: "audio/",
+		component: <UploadSection />,
+	},
+	{
+		title: "Lung Breath Audio RU",
+		sectionKey: SUB_STORE_KEY_LBAbf_RU,
+		ftag: "LBA_before_RU",
+		when: "before/ no inhaler",
+		color: purple[400],
+		fmime: "audio/",
+		component: <UploadSection />,
+	},
+	{
+		title: "Lung Breath Audio LL",
+		sectionKey: SUB_STORE_KEY_LBAbf_LL,
+		ftag: "LBA_before_LL",
+		when: "before/ no inhaler",
+		color: purple[500],
+		fmime: "audio/",
+		component: <UploadSection />,
+	},
+	{
+		title: "Lung Breath Audio RL",
+		sectionKey: SUB_STORE_KEY_LBAbf_RL,
+		ftag: "LBA_before_RL",
+		when: "before/ no inhaler",
+		color: purple[600],
+		fmime: "audio/",
+		component: <UploadSection />,
+	},
+	{
+		title: "PFT Report",
+		sectionKey: SUB_STORE_KEY_PFTaf,
+		ftag: "PFT_after",
+		when: "after inhaler",
+		color: indigo[300],
 		fmime: "application/pdf",
 		component: <UploadSection />,
 	},
@@ -142,21 +230,39 @@ export const appSectionsInfo = [
 		component: <UploadSection />,
 	},
 	{
-		title: "Lung Breath Audio",
-		sectionKey: SUB_STORE_KEY_LBAaf,
-		ftag: "LBA_after",
+		title: "Lung Breath Audio LU",
+		sectionKey: SUB_STORE_KEY_LBAaf_LU,
+		ftag: "LBA_after_LU",
 		when: "after inhaler",
-		color: orange[400],
+		color: pink[200],
 		fmime: "audio/",
 		component: <UploadSection />,
 	},
 	{
-		title: "PFT Report",
-		sectionKey: SUB_STORE_KEY_PFTaf,
-		ftag: "PFT_after",
+		title: "Lung Breath Audio RU",
+		sectionKey: SUB_STORE_KEY_LBAaf_RU,
+		ftag: "LBA_after_RU",
 		when: "after inhaler",
-		color: orange[400],
-		fmime: "application/pdf",
+		color: pink[300],
+		fmime: "audio/",
+		component: <UploadSection />,
+	},
+	{
+		title: "Lung Breath Audio LL",
+		sectionKey: SUB_STORE_KEY_LBAaf_LL,
+		ftag: "LBA_after_LL",
+		when: "after inhaler",
+		color: pink[400],
+		fmime: "audio/",
+		component: <UploadSection />,
+	},
+	{
+		title: "Lung Breath Audio RL",
+		sectionKey: SUB_STORE_KEY_LBAaf_RL,
+		ftag: "LBA_after_RL",
+		when: "after inhaler",
+		color: pink[500],
+		fmime: "audio/",
 		component: <UploadSection />,
 	},
 ];
