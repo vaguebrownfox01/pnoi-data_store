@@ -25,3 +25,4 @@ yarn-error.log*
 src/app/firebase/creds/.*
 .firebase/*.cache
 firebase-debug.log
+_*
