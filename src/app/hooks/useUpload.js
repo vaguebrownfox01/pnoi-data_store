@@ -48,18 +48,10 @@ const useFileUpload = (props) => {
 	async function handleFileUpload() {
 		// Current Selected Subject Key
 		const { [SUBJECT_ID]: subjectId } = getSubjectLocalValues();
-		if (!subjectId) return false;
+		if (!subjectId) return alert("Subject ID not found!");
 
 		if (inputFile) {
 			setIsUploading(true);
-
-			const { sectionKey, setSectionState } = props;
-			const timestamp = `file_${Date.now()}`;
-			let uploadData = {
-				[SUBJECT_ID]: subjectId,
-				[timestamp]: newFileName,
-				[SUB_STORE_KEY_SECDONE]: true,
-			};
 
 			const _done = await firebaseFileUpload(
 				subjectId,
@@ -67,6 +59,14 @@ const useFileUpload = (props) => {
 				newFileName
 			);
 			if (_done) {
+				const { sectionKey, setSectionState } = props;
+				const timestamp = `file_${Date.now()}`;
+
+				let uploadData = {
+					[SUBJECT_ID]: subjectId,
+					[timestamp]: { fileName: newFileName, link: _done },
+					[SUB_STORE_KEY_SECDONE]: true,
+				};
 				const _data = await firestoreSubjectSync(
 					sectionKey,
 					uploadData,
