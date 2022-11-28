@@ -2,6 +2,7 @@ import { Box, Button, Stack } from "@mui/material";
 import * as React from "react";
 import useBiodataInput from "../../hooks/useBiodataInput";
 import useStoreSync from "../../hooks/useStoreSync";
+import Wait from "../../layouts/Wait";
 import BioField from "../pieces/BioField";
 import SubjectList from "../pieces/SubjectList";
 
@@ -12,6 +13,7 @@ const BiodataSection = React.memo(function BiodataSection({ setSectionState }) {
 	const [done, fields, biodata, handleFieldInput, handleSubmit] =
 		useBiodataInput(currentSubject, setSectionState, handleStorSync);
 
+	const [sync, setSync] = React.useState(false);
 	function handleFormInputData({ target }) {
 		const { value: _value } = target;
 		const _field = this.field;
@@ -19,7 +21,9 @@ const BiodataSection = React.memo(function BiodataSection({ setSectionState }) {
 	}
 
 	async function handleFormSubmitData() {
-		handleSubmit();
+		setSync(true);
+		await handleSubmit();
+		setSync(false);
 	}
 
 	return (
@@ -44,6 +48,7 @@ const BiodataSection = React.memo(function BiodataSection({ setSectionState }) {
 			</Stack>
 
 			<Stack sx={{ mt: 4 }} justifyContent="center">
+				{sync && <Wait size={24} />}
 				<Button
 					variant="contained"
 					onClick={handleFormSubmitData}
