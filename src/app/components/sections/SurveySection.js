@@ -1,10 +1,10 @@
-import { Box, Button, IconButton, Stack } from "@mui/material";
+import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
 import * as React from "react";
 
 import QuestionCard from "../pieces/QuestionCard";
 
 import RestartIcon from "@mui/icons-material/RestartAlt";
-import { orange } from "@mui/material/colors";
+import { orange, red } from "@mui/material/colors";
 import { SUB_STORE_KEY_SECDONE } from "../../appconfig/sections";
 import useSurveyInput from "../../hooks/useSurveyInput";
 import Wait from "../../layouts/Wait";
@@ -52,6 +52,17 @@ const SurveySection = React.memo(function SurveySection({ setSectionState }) {
 							</IconButton>
 						</Stack>
 						{isSync && <Wait />}
+						{questionState.subjectSurvey?.isExcluded && (
+							<Typography
+								sx={{
+									color: red[400],
+									textAlign: "center",
+									mb: 2,
+								}}
+							>
+								Subject Not Eligible For Data Recording.
+							</Typography>
+						)}
 						<Button
 							variant="contained"
 							onClick={handleQuestionSubmitData}

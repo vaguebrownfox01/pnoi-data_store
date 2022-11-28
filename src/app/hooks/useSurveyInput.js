@@ -19,6 +19,8 @@ const useSurveyInput = (setSectionState) => {
 
 	const [questions] = useDocumentData(surveyDocQuery);
 
+	const exclusion_ques = [20, 22, 26, 29];
+
 	// Helpers
 	function handleNextQuestion(question, answer, next) {
 		if (next) {
@@ -64,11 +66,18 @@ const useSurveyInput = (setSectionState) => {
 
 		if (!info[SUBJECT_ID]) return false;
 
+		let _exclude = !questionState.answeredQs.reduce((p, q) => {
+			return p && !(exclusion_ques.includes(q.qno) && q.answer === "Yes");
+		}, true);
+
+		console.log({ _exclude });
+
 		let _nsectionData = {
 			...questionState,
 			[SUBJECT_ID]: info[SUBJECT_ID],
 			[SUBJECT_NAME]: info[SUBJECT_NAME],
 			[SUB_STORE_KEY_SECDONE]: true,
+			isExcluded: _exclude,
 		};
 
 		const afterSync = await firestoreSubjectSync(
@@ -89,6 +98,7 @@ const useSurveyInput = (setSectionState) => {
 				currentQuestion: questions[1],
 				[SUB_STORE_KEY_SECDONE]: false,
 				answeredQs: [],
+				isExcluded: false,
 			});
 		}
 	}, [questions]);
