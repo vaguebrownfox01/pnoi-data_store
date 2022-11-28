@@ -13,12 +13,12 @@ const allQuestions = {
 	},
 	3: {
 		qno: 3,
-		question: "How many times in a year cough-episode occurs?",
+		question: "How many times do you have cough and chest tightness?",
 		options: ["1", "2", "3", ">3"],
-		nextQnos: [4],
+		nextQnos: [5],
 	},
 	4: {
-		qno: 4,
+		qno: 4, // Skip question
 		question: "How long does each episode last?",
 		options: ["less that 3 times", "more than 3 times"],
 		nextQnos: [5],
@@ -37,7 +37,7 @@ const allQuestions = {
 	},
 	7: {
 		qno: 7,
-		question: "For how long is the wheeze present? (days)",
+		question: "For how long is the symptom present? (days)",
 		options: [],
 		nextQnos: [8],
 	},
@@ -169,7 +169,7 @@ const allQuestions = {
 	},
 	28: {
 		qno: 28,
-		question: "What health problems?",
+		question: "What other health problems?",
 		options: [],
 		nextQnos: [29],
 	},
