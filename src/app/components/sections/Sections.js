@@ -10,12 +10,14 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import useAppSections from "../../hooks/useAppSections";
 import Wait from "../../layouts/Wait";
+import StatusCard from "../pieces/StatusCard";
 
 const Sections = React.memo(function Sections() {
-	const [sections, sectionStatus] = useAppSections();
+	const [sections, sectionStatus, subjectStatus] = useAppSections();
 
 	return (
 		<div>
+			{subjectStatus && <StatusCard {...subjectStatus} />}
 			{sections.map((dataPt, i) => (
 				<Accordion
 					sx={{ mb: dataPt.style.mb }}

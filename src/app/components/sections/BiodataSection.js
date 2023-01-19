@@ -6,9 +6,12 @@ import Wait from "../../layouts/Wait";
 import BioField from "../pieces/BioField";
 import SubjectList from "../pieces/SubjectList";
 
-const BiodataSection = React.memo(function BiodataSection({ setSectionState }) {
+const BiodataSection = React.memo(function BiodataSection({
+	setSectionState,
+	setSubjectStatus,
+}) {
 	const [allSubjects, currentSubject, handleSubjectSelect, handleStorSync] =
-		useStoreSync(setSectionState);
+		useStoreSync(setSectionState, setSubjectStatus);
 
 	const [done, fields, biodata, handleFieldInput, handleSubmit] =
 		useBiodataInput(currentSubject, setSectionState, handleStorSync);

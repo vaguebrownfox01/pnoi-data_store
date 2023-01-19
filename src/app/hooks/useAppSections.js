@@ -4,9 +4,14 @@ import { appSectionsInfo } from "../appconfig/sections";
 const useAppSections = () => {
 	// States
 	const [sectionStatus, setSectionStatus] = React.useState();
+	const [subjectStatus, setSubjectStatus] = React.useState({});
 
 	function handleSetSectionState(sectionKey, isDone) {
 		setSectionStatus((p) => ({ ...p, [sectionKey]: isDone }));
+	}
+
+	function handleSetSubjectState(subjectInfo) {
+		setSubjectStatus(subjectInfo);
 	}
 
 	// Helpers
@@ -15,6 +20,7 @@ const useAppSections = () => {
 			React.cloneElement(child, {
 				...props,
 				setSectionState: handleSetSectionState,
+				setSubjectStatus: handleSetSubjectState,
 			})
 		) : (
 			<></>
@@ -37,7 +43,7 @@ const useAppSections = () => {
 		setSectionStatus(sectionStates);
 	}, []);
 
-	return [sections, sectionStatus];
+	return [sections, sectionStatus, subjectStatus];
 };
 
 export default useAppSections;
