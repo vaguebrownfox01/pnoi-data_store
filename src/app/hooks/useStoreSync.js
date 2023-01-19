@@ -15,7 +15,7 @@ import {
 	subjectsCollectionQuery,
 } from "../firebase/client/firestore";
 
-const useStoreSync = (setSectionState) => {
+const useStoreSync = (setSectionState, setSubjectStatus) => {
 	const [allSubjects] = useCollectionData(subjectsCollectionQuery);
 	const [currentSubject, setCurrentSubject] = React.useState(initSubject);
 
@@ -47,6 +47,8 @@ const useStoreSync = (setSectionState) => {
 				const state = currentSubject[sectionKey][SUB_STORE_KEY_SECDONE];
 				setSectionState(sectionKey, state);
 			});
+
+			setSubjectStatus(currentSubject);
 		}
 	}, [currentSubject, setSectionState]);
 

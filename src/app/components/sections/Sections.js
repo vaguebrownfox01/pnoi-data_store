@@ -10,14 +10,20 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import useAppSections from "../../hooks/useAppSections";
 import Wait from "../../layouts/Wait";
+import StatusCard from "../pieces/StatusCard";
 
 const Sections = React.memo(function Sections() {
-	const [sections, sectionStatus] = useAppSections();
+	const [sections, sectionStatus, subjectStatus] = useAppSections();
 
 	return (
 		<div>
+			{subjectStatus && <StatusCard {...subjectStatus} />}
 			{sections.map((dataPt, i) => (
-				<Accordion key={`panel1a-header-${i}-key`} square={false}>
+				<Accordion
+					sx={{ mb: dataPt.style.mb }}
+					key={`panel1a-header-${i}-key`}
+					square={false}
+				>
 					<AccordionSummary
 						expandIcon={<ExpandMoreIcon />}
 						aria-controls={`panel1a-content-${i}-key`}
@@ -37,7 +43,8 @@ const Sections = React.memo(function Sections() {
 							<Typography
 								variant="caption"
 								fontWeight="bold"
-								color={dataPt.color || "primary"}
+								color="primary"
+								{...dataPt.style}
 								gutterBottom
 							>
 								{dataPt.when}
