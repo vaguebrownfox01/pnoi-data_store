@@ -1,4 +1,4 @@
-export const APP_VERSION = "dec01";
+export const APP_VERSION = "feb2023";
 export const PROJECT_TAG = "pnoistor";
 export const PROJECT_NAME = "Pnoi Data Store";
 export const AUTHOR_NAME = "vaguebrownfox";
