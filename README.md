@@ -1,3 +1,3 @@
-# App Template
+# Pnoistor
 
-## ReactJS Web-app template: MUI + CRA
+## Pnoi data storage interface
