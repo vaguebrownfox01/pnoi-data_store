@@ -26,3 +26,5 @@ src/app/firebase/creds/.*
 .firebase/*.cache
 firebase-debug.log
 _*
+
+exports/*
