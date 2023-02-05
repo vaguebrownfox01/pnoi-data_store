@@ -1,6 +1,6 @@
 import { st } from "../creds/client";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { AUDIO_DATA_FOLDER } from "../creds/.setup";
+import { AUDIO_DATA_FOLDER } from "../creds/setup";
 
 export const firebaseFileUpload = async (subjectId, fileObj, filename) => {
 	const path = `${AUDIO_DATA_FOLDER}/${subjectId}/${filename}`;

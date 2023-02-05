@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { AUTH_DOM } from "../creds/.setup";
+import { AUTH_DOM } from "../creds/setup";
 import { au } from "../creds/client";
 
 export const firebaseAdminLogin = async (uid, passkey) => {
