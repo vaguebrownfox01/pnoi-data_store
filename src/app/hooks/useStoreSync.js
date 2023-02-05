@@ -39,7 +39,7 @@ const useStoreSync = (setSectionState, setSubjectStatus) => {
 		if (afterSync) setCurrentSubject((p) => ({ ...p, ...afterSync }));
 	}
 
-	React.useEffect(() => {
+	const updateSectionState = React.useCallback(() => {
 		if (currentSubject) {
 			setSubjectLocalValues(currentSubject);
 
@@ -50,7 +50,21 @@ const useStoreSync = (setSectionState, setSubjectStatus) => {
 
 			setSubjectStatus(currentSubject);
 		}
-	}, [currentSubject, setSectionState]);
+	}, [currentSubject, setSectionState, setSubjectStatus]);
+
+	React.useEffect(() => {
+		// if (currentSubject) {
+		// 	setSubjectLocalValues(currentSubject);
+
+		// 	appSectionsInfo.forEach(({ sectionKey }) => {
+		// 		const state = currentSubject[sectionKey][SUB_STORE_KEY_SECDONE];
+		// 		setSectionState(sectionKey, state);
+		// 	});
+
+		// 	setSubjectStatus(currentSubject);
+		// }
+		updateSectionState();
+	}, [updateSectionState]);
 
 	return [allSubjects, currentSubject, handleSubjectSelect, handleStorSync];
 };
