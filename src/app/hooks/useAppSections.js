@@ -35,13 +35,22 @@ const useAppSections = () => {
 		}));
 	}, [propChild]);
 
-	React.useEffect(() => {
+	const initSectionState = React.useCallback(() => {
 		const sectionStates = sections.reduce(
 			(prv, cur) => ({ ...prv, [cur["sectionKey"]]: false }),
 			{}
 		);
 		setSectionStatus(sectionStates);
-	}, []);
+	}, [sections]);
+
+	React.useEffect(() => {
+		// const sectionStates = sections.reduce(
+		// 	(prv, cur) => ({ ...prv, [cur["sectionKey"]]: false }),
+		// 	{}
+		// );
+		// setSectionStatus(sectionStates);
+		initSectionState();
+	}, [initSectionState]);
 
 	return [sections, sectionStatus, subjectStatus];
 };
