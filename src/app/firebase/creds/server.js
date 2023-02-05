@@ -1,4 +1,4 @@
-const { DATABASE_URL, SERVER_CONFIG_PATH } = require("./.setup");
+const { DATABASE_URL, SERVER_CONFIG_PATH } = require("./setup");
 
 const {
 	initializeApp,

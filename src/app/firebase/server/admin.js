@@ -1,5 +1,5 @@
 const { server_db } = require("../creds/server");
-const { SURVEY_DOC_PATH, SURVEY_PATH } = require("../creds/.setup");
+const { SURVEY_DOC_PATH, SURVEY_PATH } = require("../creds/setup");
 
 const { allQuestions } = require(SURVEY_PATH);
 

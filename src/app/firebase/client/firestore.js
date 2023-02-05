@@ -6,7 +6,7 @@ import {
 	SUBJECT_COLLECTION,
 	SUBJECT_UUID_LEN,
 	SURVEY_DOC_PATH,
-} from "../creds/.setup";
+} from "../creds/setup";
 import { db } from "../creds/client";
 
 export const subjectsCollectionQuery = collection(db, SUBJECT_COLLECTION);

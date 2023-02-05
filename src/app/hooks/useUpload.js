@@ -5,7 +5,7 @@ import { firestoreSubjectSync } from "../firebase/client/firestore";
 import { firebaseFileUpload } from "../firebase/client/storage";
 import { v4 as uuid } from "uuid";
 import { APP_VERSION, PROJECT_TAG } from "../appconfig/info";
-import { FILENAME_SEP } from "../firebase/creds/.setup";
+import { FILENAME_SEP } from "../firebase/creds/setup";
 
 const useFileUpload = (props) => {
 	const [isUploading, setIsUploading] = React.useState(false);

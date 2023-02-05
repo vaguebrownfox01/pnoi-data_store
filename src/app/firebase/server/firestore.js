@@ -6,7 +6,7 @@ const {
 	DATABASE_URL,
 	SUBJECT_COLLECTIONS,
 	LOCAL_EXPORT_PATH,
-} = require("../creds/.setup");
+} = require("../creds/setup");
 
 admin.initializeApp({
 	credential: admin.credential.cert(SERVER_CONFIG_PATH),
