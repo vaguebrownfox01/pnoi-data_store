@@ -11,9 +11,12 @@ Pnoistor is an essential component of the Phoi-phone project, facilitating the s
 It is built to ensure a streamlined data collection pipeline for the development of an AI model aimed at predicting pulmonary function test (PFT) values using respiratory sounds recorded simultaneously from the mouth and chest.
 
 ### Screenshots
+
+<div>
 <img alt="pnoistor app screenshot" src="media/pnoistor-app_screen0.png" width="300">
 <img alt="pnoistor app screenshot" src="media/pnoistor-app-biodata.png" width="328">
 <img alt="pnoistor app screenshot" src="media/pnoistor-app_screen.png" width="286">
+<div>
 
 
 ## Features
